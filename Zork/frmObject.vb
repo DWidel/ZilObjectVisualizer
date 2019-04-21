@@ -1,7 +1,11 @@
 ﻿Public Class frmObject
 
 
+    Public Event NewObject(Name As String)
     Private Obj As clsObject
+
+
+
 
 
     Public Sub New(O As clsObject)
@@ -147,7 +151,6 @@
 
 
 
-    Public Event NewObject(Name As String)
     Private Sub dgvProps_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles dgvProps.MouseDoubleClick
         If dgvProps.SelectedRows.Count = 0 Then Exit Sub
 
@@ -169,7 +172,26 @@
     End Sub
 
     Private Sub lblLoc_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblLoc.LinkClicked
-        Dim key As String = txtLoc.Text
+
+        Try
+            HandleNav(txtLoc.Text)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+
+
+    Private Sub lblIN_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblIN.LinkClicked
+        Try
+
+            HandleNav(txtIsIn.Text)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub HandleNav(key As String)
         Dim Obj As clsObject = Game.GetObject(key)
         If Obj IsNot Nothing Then
             Using f As New frmObject(Obj)
@@ -183,7 +205,6 @@
                 End Using
             End If
         End If
-
 
 
     End Sub

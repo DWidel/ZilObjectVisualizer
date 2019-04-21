@@ -1,4 +1,6 @@
 ﻿Public Class clsRoom
+    Inherits clsBase
+
 
 
     Public Name As String

@@ -22,6 +22,7 @@ Partial Class frmRoom
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtName = New System.Windows.Forms.TextBox()
@@ -47,6 +48,7 @@ Partial Class frmRoom
         Me.DataGridViewTextBoxColumn1 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.DataGridViewTextBoxColumn2 = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.lblText = New System.Windows.Forms.LinkLabel()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         CType(Me.dgvDirections, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.dgvPseudos, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -198,6 +200,7 @@ Partial Class frmRoom
         Me.lbObjects.Name = "lbObjects"
         Me.lbObjects.Size = New System.Drawing.Size(115, 121)
         Me.lbObjects.TabIndex = 21
+        Me.ToolTip1.SetToolTip(Me.lbObjects, "Objects listed in this room.")
         '
         'lbObjectsHere
         '
@@ -206,15 +209,16 @@ Partial Class frmRoom
         Me.lbObjectsHere.Name = "lbObjectsHere"
         Me.lbObjectsHere.Size = New System.Drawing.Size(115, 121)
         Me.lbObjectsHere.TabIndex = 23
+        Me.ToolTip1.SetToolTip(Me.lbObjectsHere, "Objects that have this room as their IN or LOC.")
         '
         'Label5
         '
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(571, 141)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(89, 13)
+        Me.Label5.Size = New System.Drawing.Size(110, 13)
         Me.Label5.TabIndex = 22
-        Me.Label5.Text = "Objects Here (IN)"
+        Me.Label5.Text = "Objects Here (IN,Loc)"
         '
         'lbFlags
         '
@@ -270,6 +274,7 @@ Partial Class frmRoom
         Me.lblText.TabIndex = 27
         Me.lblText.TabStop = True
         Me.lblText.Text = "Text"
+        Me.ToolTip1.SetToolTip(Me.lblText, "Parsed text of this Room.")
         '
         'frmRoom
         '
@@ -331,4 +336,5 @@ Partial Class frmRoom
     Friend WithEvents DataGridViewTextBoxColumn1 As DataGridViewTextBoxColumn
     Friend WithEvents DataGridViewTextBoxColumn2 As DataGridViewTextBoxColumn
     Friend WithEvents lblText As LinkLabel
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

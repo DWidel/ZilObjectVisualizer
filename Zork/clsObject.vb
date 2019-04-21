@@ -1,4 +1,6 @@
 ﻿Public Class clsObject
+    Inherits clsBase
+
 
     Public Name As String
     Public IsIn As String

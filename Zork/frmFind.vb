@@ -83,4 +83,13 @@
 
 
     End Sub
+
+
+    Private Sub txtFilter_KeyDown(sender As Object, e As KeyEventArgs) Handles txtFilter.KeyDown
+        If e.KeyCode = Keys.Enter Then
+            e.Handled = True
+            e.SuppressKeyPress = True
+            btnFind.PerformClick()
+        End If
+    End Sub
 End Class

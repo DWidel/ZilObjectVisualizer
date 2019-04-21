@@ -1,11 +1,27 @@
 ﻿Public Class frmLoader
 
     Public SelectedFile As String
+    Public RecentFiles As New List(Of String)
 
     Private Sub frmLoader_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+
+        LoadSettings()
+
         If My.Settings.LastFileLoaded.Trim <> "" Then
             txtFilename.Text = My.Settings.LastFileLoaded.Trim
         End If
+
+        If My.Settings.RecentFilesLoaded.Trim <> "" Then
+            Dim Recent As String() = My.Settings.RecentFilesLoaded.Split("|")
+            For Each file As String In Recent
+                file = file.Trim
+                If file <> "" Then
+                    RecentFiles.Add(file)
+                End If
+            Next
+            lbRecent.DataSource = RecentFiles
+        End If
+
     End Sub
     Private Sub btnLoad_Click(sender As Object, e As EventArgs) Handles btnLoad.Click
 
@@ -47,17 +63,103 @@
         ' C:\Temp\infocom\zork2-master\zork2.zil
         ' C:\Temp\infocom\zork3-master\zork3.zil
         ' C:\Temp\infocom\zorkzero-master\zork0.zil
+        Try
 
-        If Not IO.File.Exists(txtFilename.Text) Then
-            MsgBox("Unable to load file.")
-            Exit Sub
+            Cursor = Cursors.WaitCursor
+
+            Dim Filename As String = txtFilename.Text.Trim
+            Filename = TrimQuotes(Filename)
+            txtFilename.Text = Filename
+
+            If Not IO.Path.GetExtension(Filename).ToUpper = ".ZIL" Then
+                MsgBox("Can only parse ZIL files.")
+                Exit Sub
+            End If
+
+            If Not IO.File.Exists(Filename) Then
+                MsgBox("Unable to load file.")
+                Exit Sub
+            End If
+
+            'Save
+            My.Settings.LastFileLoaded = Filename
+            If RecentFiles.Contains(Filename) Then
+                RecentFiles.Remove(Filename)
+            End If
+            RecentFiles.Insert(0, Filename)
+            If RecentFiles.Count > MaxRecentFiles Then
+                RecentFiles.RemoveAt(MaxRecentFiles)
+            End If
+
+            My.Settings.RecentFilesLoaded = String.Join("|", RecentFiles)
+
+
+            SelectedFile = txtFilename.Text
+            Game = New Parser
+            Game.ParseFile(txtFilename.Text)
+            Game.Finish()
+            Me.DialogResult = DialogResult.OK
+            Me.Close()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        Finally
+            Cursor = Cursors.Default
+        End Try
+    End Sub
+
+    Private Sub btnSelectFile_Click(sender As Object, e As EventArgs) Handles btnSelectFile.Click
+        Try
+
+            Dim fo As New System.Windows.Forms.OpenFileDialog
+        fo.Multiselect = False
+
+
+        Dim sDir As String = txtFilename.Text.Trim
+        If sDir <> "" Then
+            sDir = IO.Path.GetDirectoryName(sDir)
+        Else
+            sDir = "C:\Temp"
         End If
-        My.Settings.LastFileLoaded = txtFilename.Text
-        SelectedFile = txtFilename.Text
-        Game = New Parser
-        Game.ParseFile(txtFilename.Text)
-        Game.Finish()
-        Me.DialogResult = DialogResult.OK
-        Me.Close()
+
+        If sDir = "" OrElse Not IO.Directory.Exists(sDir) Then
+            sDir = "C:\Temp"
+        End If
+
+        fo.InitialDirectory = sDir
+
+        If fo.ShowDialog() = Windows.Forms.DialogResult.OK Then
+            txtFilename.Text = fo.FileName
+            btnLoad.PerformClick()
+        End If
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+
+    Private Sub lbRecent_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lbRecent.MouseDoubleClick
+        Try
+
+            txtFilename.Text = lbRecent.SelectedItem
+            btnLoad.PerformClick()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub lbRecent_KeyDown(sender As Object, e As KeyEventArgs) Handles lbRecent.KeyDown
+        Try
+            If e.KeyCode = Keys.Enter Then
+                LoadRecent()
+            End If
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub LoadRecent()
+        txtFilename.Text = lbRecent.SelectedItem
+        btnLoad.PerformClick()
     End Sub
 End Class

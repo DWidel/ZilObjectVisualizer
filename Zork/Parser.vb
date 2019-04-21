@@ -393,7 +393,7 @@
     Public Function GetObjectsInRoom(RoomName As String) As List(Of clsObject)
         Dim lst As New List(Of clsObject)
         For Each R As clsObject In Objects
-            If R.IsIn = RoomName Then lst.Add(R)
+            If R.IsIn = RoomName OrElse R.Location = RoomName Then lst.Add(R)
         Next
 
         Return lst

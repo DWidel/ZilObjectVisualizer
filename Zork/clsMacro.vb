@@ -1,4 +1,5 @@
 ﻿Public Class clsMacro
+    Inherits clsBase
 
 
     Public Name As String

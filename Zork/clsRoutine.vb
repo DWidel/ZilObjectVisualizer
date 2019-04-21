@@ -1,4 +1,5 @@
 ﻿Public Class clsRoutine
+    Inherits clsBase
 
     Public Name As String
     Public OrigText As String

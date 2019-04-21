@@ -11,8 +11,11 @@
         End Using
 
 
+        Nav = New Navigation(btnNavBack, btnNavForward)
+
         lbRooms.DataSource = Game.Rooms
         lbObjects.DataSource = Game.Objects
+
         lbRoutines.DataSource = Game.Routines
         lbGlobals.DataSource = Game.Globals
         lbMacro.DataSource = Game.Macros
@@ -40,7 +43,10 @@
         tpFindText.Controls.Add(fFind)
         fFind.Show()
 
-
+        fndRoom.Init(lbRooms, ObjTypes.Room)
+        fndObject.Init(lbObjects, ObjTypes.Object)
+        fndRoutine.Init(lbRoutines, ObjTypes.Routine)
+        fndMacro.Init(lbMacro, ObjTypes.Macro)
 
     End Sub
 
@@ -50,9 +56,11 @@
 
 
     Private Sub NewRoom(name As String)
+
         For Each R As clsRoom In lbRooms.Items
             If R.Name = name Then
                 lbRooms.SelectedItem = R
+                TabControl1.SelectedTab = tpRooms
                 Exit For
             End If
         Next
@@ -62,10 +70,48 @@
         For Each R As clsObject In lbObjects.Items
             If R.Name = name Then
                 lbObjects.SelectedItem = R
+                TabControl1.SelectedTab = tpObjects
                 Exit For
             End If
         Next
     End Sub
+
+    Private Sub NewRoutine(name As String)
+        For Each R As clsRoutine In lbRoutines.Items
+            If R.Name = name Then
+                lbRoutines.SelectedItem = R
+                TabControl1.SelectedTab = tpRoutines
+                Exit For
+            End If
+        Next
+    End Sub
+    Private Sub NewMacro(name As String)
+        For Each R As clsMacro In lbMacro.Items
+            If R.Name = name Then
+                lbMacro.SelectedItem = R
+                TabControl1.SelectedTab = tpMacros
+                Exit For
+            End If
+        Next
+    End Sub
+    Private Sub NewFlag(name As String)
+        For Each R As String In lbFlags.Items
+            If R = name Then
+                lbFlags.SelectedItem = R
+                TabControl1.SelectedTab = tpFlags
+                Exit For
+            End If
+        Next
+    End Sub
+    Private Sub NewGlobal(name As String)
+        For Each R As clsGlobal In lbGlobals.Items
+            If R.Name = name Then
+                lbGlobals.SelectedItem = R
+                Exit For
+            End If
+        Next
+    End Sub
+
 
     Private Sub lbRooms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbRooms.SelectedIndexChanged
         Try
@@ -74,14 +120,10 @@
             End If
             pnlRoom.Controls.Clear()
 
+
+
             Dim R As clsRoom = lbRooms.SelectedItem
-            Dim f As New frmRoom(R)
-            f.FormBorderStyle = FormBorderStyle.None
-            f.Dock = DockStyle.Fill
-            f.TopLevel = False
-            pnlRoom.Controls.Add(f)
-            AddHandler f.NewRoom, AddressOf NewRoom
-            f.Show()
+            NavToRoom(R)
 
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -89,6 +131,29 @@
 
 
     End Sub
+
+
+    Private Sub NavToRoom(name As String)
+        Dim R As clsRoom = Game.GetRoom(name)
+        If R IsNot Nothing Then
+            NavToRoom(R)
+        End If
+    End Sub
+
+
+    Private Sub NavToRoom(R As clsRoom)
+
+        Dim f As New frmRoom(R)
+        f.FormBorderStyle = FormBorderStyle.None
+        f.Dock = DockStyle.Fill
+        f.TopLevel = False
+        pnlRoom.Controls.Add(f)
+        AddHandler f.NewRoom, AddressOf NewRoom
+        f.Show()
+        Nav.AddLink(ObjTypes.Room, R.Name)
+
+    End Sub
+
 
     Private Sub lbObjects_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbObjects.SelectedIndexChanged
         Try
@@ -106,7 +171,7 @@
             pnlObjects.Controls.Add(f)
             AddHandler f.NewObject, AddressOf NewObject
             f.Show()
-
+            Nav.AddLink(ObjTypes.Object, Obj.Name)
 
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -124,11 +189,12 @@
 
         Dim Obj As clsRoutine = lbRoutines.SelectedItem
         Dim f As New frmRoutine(Obj)
-        f.FormBorderStyle = FormBorderStyle.None
-        f.Dock = DockStyle.Fill
+            f.FormBorderStyle = FormBorderStyle.None
+            f.Dock = DockStyle.Fill
         f.TopLevel = False
         pnlRoutine.Controls.Add(f)
-        f.Show()
+            f.Show()
+            Nav.AddLink(ObjTypes.Routine, Obj.Name)
 
 
         Catch ex As Exception
@@ -156,6 +222,7 @@
             pnlGlobals.Controls.Add(f)
             f.Show()
 
+            Nav.AddLink(ObjTypes.Global, G.Name)
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
@@ -190,10 +257,8 @@
             word = word.Trim
             If word = "OBJECT" Then Continue For
             If word.StartsWith("(") Then Exit For
-            collst.Add(word)
-            'If word.StartsWith("(") Then word = word.Substring(1)
-            'If word.EndsWith(")") Then word = word.Substring(0, word.Length - 1)
-            Dim c As New DataGridViewColumn(New DataGridViewTextBoxCell)
+                collst.Add(word)
+                Dim c As New DataGridViewColumn(New DataGridViewTextBoxCell)
             c.HeaderText = word
             dgvSyns.Columns.Add(c)
 
@@ -244,86 +309,6 @@
 
     End Sub
 
-    Private Sub txtObjectFilter_TextChanged(sender As Object, e As EventArgs) Handles txtObjectFilter.TextChanged
-        Dim key As String = txtObjectFilter.Text
-
-
-    End Sub
-
-    Private Sub btnFindObject_Click(sender As Object, e As EventArgs) Handles btnFindObject.Click
-        Try
-            Dim key As String = txtObjectFilter.Text.ToUpper
-        Dim idx As Integer = 0
-
-        idx = lbObjects.SelectedIndex
-        For i As Integer = idx + 1 To Game.Objects.Count - 1
-            If Game.Objects(i).ToString.ToUpper.Contains(key) Then
-                lbObjects.SelectedIndex = i
-                Exit Sub
-            End If
-        Next
-
-        For i As Integer = 0 To idx - 1
-            If Game.Objects(i).ToString.ToUpper.Contains(key) Then
-                lbObjects.SelectedIndex = i
-                Exit Sub
-            End If
-        Next
-
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-    End Sub
-
-    Private Sub btnFindFilter_Click(sender As Object, e As EventArgs) Handles btnFindFilter.Click
-        Try
-            Dim key As String = txtRoomFilter.Text.ToUpper
-        Dim idx As Integer = 0
-
-        idx = lbRooms.SelectedIndex
-        For i As Integer = idx + 1 To Game.Rooms.Count - 1
-            If Game.Rooms(i).ToString.ToUpper.Contains(key) Then
-                lbRooms.SelectedIndex = i
-                Exit Sub
-            End If
-        Next
-
-        For i As Integer = 0 To idx - 1
-            If Game.Rooms(i).ToString.ToUpper.Contains(key) Then
-                lbRooms.SelectedIndex = i
-                Exit Sub
-            End If
-        Next
-
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-    End Sub
-
-    Private Sub btnRoutineFind_Click(sender As Object, e As EventArgs) Handles btnRoutineFind.Click
-        Try
-            Dim key As String = txtRoutineFilter.Text.ToUpper
-            Dim idx As Integer = 0
-
-            idx = lbRoutines.SelectedIndex
-            For i As Integer = idx + 1 To Game.Routines.Count - 1
-                If Game.Routines(i).ToString.ToUpper.Contains(key) Then
-                    lbRoutines.SelectedIndex = i
-                    Exit Sub
-                End If
-            Next
-
-            For i As Integer = 0 To idx - 1
-                If Game.Routines(i).ToString.ToUpper.Contains(key) Then
-                    lbRoutines.SelectedIndex = i
-                    Exit Sub
-                End If
-            Next
-
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-    End Sub
 
     Private Sub btnFlagFind_Click(sender As Object, e As EventArgs) Handles btnFlagFind.Click
         Try
@@ -365,51 +350,8 @@
         f.TopLevel = False
         pnlFlag.Controls.Add(f)
             f.Show()
-        Catch ex As Exception
-            MsgBox(ex.ToString)
-        End Try
-    End Sub
 
-
-    'Private Sub btnFindFilter_Click(sender As Object, e As EventArgs) Handles btnFindFilter.Click
-    '    Dim key As String = txtRoomFilter.Text.ToUpper
-    '    Dim idx As Integer = 0
-
-    '    idx = lbRooms.SelectedIndex
-    '    For i As Integer = idx + 1 To Game.Rooms.Count - 1
-    '        If Game.Rooms(i).ToString.ToUpper.Contains(key) Then
-    '            lbRooms.SelectedIndex = i
-    '            Exit Sub
-    '        End If
-    '    Next
-
-    '    For i As Integer = 0 To idx - 1
-    '        If Game.Rooms(i).ToString.ToUpper.Contains(key) Then
-    '            lbRooms.SelectedIndex = i
-    '            Exit Sub
-    '        End If
-    '    Next
-
-    'End Sub
-    Private Sub btnMacroFind_Click(sender As Object, e As EventArgs) Handles btnMacroFind.Click
-        Try
-            Dim key As String = txtMacroFilter.Text.ToUpper
-        Dim idx As Integer = 0
-
-        idx = lbMacro.SelectedIndex
-        For i As Integer = idx + 1 To Game.Rooms.Count - 1
-            If Game.Rooms(i).ToString.ToUpper.Contains(key) Then
-                lbMacro.SelectedIndex = i
-                Exit Sub
-            End If
-        Next
-
-        For i As Integer = 0 To idx - 1
-            If Game.Rooms(i).ToString.ToUpper.Contains(key) Then
-                lbMacro.SelectedIndex = i
-                Exit Sub
-            End If
-        Next
+            Nav.AddLink(ObjTypes.Flag, key)
 
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -432,9 +374,51 @@
         pnlMacro.Controls.Add(f)
             f.Show()
 
+            Nav.AddLink(ObjTypes.Macro, M.Name)
+
         Catch ex As Exception
             MsgBox(ex.ToString)
         End Try
+    End Sub
+
+    Private Sub btnNavBack_Click(sender As Object, e As EventArgs) Handles btnNavBack.Click
+        Try
+
+            Dim L As Navigation.Lnk = Nav.Back
+        NavigateToLnk(L)
+
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub btnNavForward_Click(sender As Object, e As EventArgs) Handles btnNavForward.Click
+        Try
+            Dim L As Navigation.Lnk = Nav.Forward
+            NavigateToLnk(L)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
+
+    Private Sub NavigateToLnk(L As Navigation.Lnk)
+        Select Case L.Type
+            Case ObjTypes.Room
+                NewRoom(L.Name)
+            Case ObjTypes.Object
+                NewObject(L.Name)
+            Case ObjTypes.Routine
+                NewRoutine(L.Name)
+            Case ObjTypes.Flag
+                NewFlag(L.Name)
+            Case ObjTypes.Macro
+                NewMacro(L.Name)
+            Case ObjTypes.Global
+                NewGlobal(L.Name)
+
+
+        End Select
+
     End Sub
 
 End Class

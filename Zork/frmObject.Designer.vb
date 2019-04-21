@@ -34,7 +34,7 @@ Partial Class frmObject
         Me.txtGlobal = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtIsIn = New System.Windows.Forms.TextBox()
-        Me.Label8 = New System.Windows.Forms.Label()
+        Me.lblIN = New System.Windows.Forms.LinkLabel()
         Me.txtSyn = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtText = New System.Windows.Forms.TextBox()
@@ -155,17 +155,18 @@ Partial Class frmObject
         '
         Me.txtIsIn.Location = New System.Drawing.Point(344, 3)
         Me.txtIsIn.Name = "txtIsIn"
-        Me.txtIsIn.Size = New System.Drawing.Size(100, 20)
+        Me.txtIsIn.Size = New System.Drawing.Size(121, 20)
         Me.txtIsIn.TabIndex = 15
         '
-        'Label8
+        'lblIN
         '
-        Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(320, 6)
-        Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(18, 13)
-        Me.Label8.TabIndex = 14
-        Me.Label8.Text = "IN"
+        Me.lblIN.AutoSize = True
+        Me.lblIN.Location = New System.Drawing.Point(320, 6)
+        Me.lblIN.Name = "lblIN"
+        Me.lblIN.Size = New System.Drawing.Size(18, 13)
+        Me.lblIN.TabIndex = 14
+        Me.lblIN.TabStop = True
+        Me.lblIN.Text = "IN"
         '
         'txtSyn
         '
@@ -398,7 +399,7 @@ Partial Class frmObject
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.txtIsIn)
-        Me.Controls.Add(Me.Label8)
+        Me.Controls.Add(Me.lblIN)
         Me.Controls.Add(Me.txtGlobal)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.txtAction)
@@ -429,7 +430,7 @@ Partial Class frmObject
     Friend WithEvents txtGlobal As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents txtIsIn As TextBox
-    Friend WithEvents Label8 As Label
+    Friend WithEvents lblIN As LinkLabel
     Friend WithEvents txtSyn As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents txtText As TextBox

@@ -1,7 +1,23 @@
 ﻿Public Module modPublic
 
 
+
+
+    Public Nav As Navigation
     Public Game As Parser
+
+    Public MaxRecentFiles As Integer = 30
+
+    Public Sub LoadSettings()
+        Try
+            If My.Settings.MaxRecentFiles <> "" Then
+                Integer.TryParse(My.Settings.MaxRecentFiles, MaxRecentFiles)
+            End If
+
+        Catch ex As Exception
+            MsgBox("Error in LoadSettings.")
+        End Try
+    End Sub
 
 
 
@@ -179,4 +195,16 @@
 
 
     End Sub
+
+
+    Public Enum ObjTypes
+        Unknown = 0
+        Room
+        [Object]
+        Routine
+        Flag
+        Macro
+        [Global]
+
+    End Enum
 End Module

@@ -45,7 +45,6 @@
 
         For Each Obj As String In Room.Objects
             lbObjects.Items.Add(Obj)
-
         Next
 
         Dim lst As List(Of clsObject) = Game.GetObjectsInRoom(Room.Name)

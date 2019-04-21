@@ -65,6 +65,30 @@ Namespace My
                 Me("LastFileLoaded") = value
             End Set
         End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
+        Public Property RecentFilesLoaded() As String
+            Get
+                Return CType(Me("RecentFilesLoaded"),String)
+            End Get
+            Set
+                Me("RecentFilesLoaded") = value
+            End Set
+        End Property
+        
+        <Global.System.Configuration.UserScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("30")>  _
+        Public Property MaxRecentFiles() As String
+            Get
+                Return CType(Me("MaxRecentFiles"),String)
+            End Get
+            Set
+                Me("MaxRecentFiles") = value
+            End Set
+        End Property
     End Class
 End Namespace
 

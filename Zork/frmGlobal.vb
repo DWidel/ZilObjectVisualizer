@@ -3,6 +3,18 @@
 
     Private Glob As clsGlobal
 
+    Private WriteOnly Property Type As clsGlobal.VarType
+        Set(value As clsGlobal.VarType)
+            Select Case value
+                Case clsGlobal.VarType.Global
+                    lblConstant.Visible = False
+                    lblGlobal.Visible = True
+                Case clsGlobal.VarType.Constant
+                    lblConstant.Visible = True
+                    lblGlobal.Visible = False
+            End Select
+        End Set
+    End Property
 
     Public Sub New(G As clsGlobal)
 
@@ -11,6 +23,7 @@
 
         ' Add any initialization after the InitializeComponent() call.
         Me.Glob = G
+        Me.Type = G.Type
 
     End Sub
 

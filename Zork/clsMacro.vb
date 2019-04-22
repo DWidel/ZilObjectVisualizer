@@ -1,10 +1,6 @@
 ﻿Public Class clsMacro
-    Inherits clsBase
+    Inherits clsNameValue
 
-
-    Public Name As String
-    Public OrigText As String
-    Public Value As String
 
 
 

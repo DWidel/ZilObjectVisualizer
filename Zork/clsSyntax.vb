@@ -1,9 +1,8 @@
 ﻿Public Class clsSyntax
+    Inherits clsNameValue
 
 
     Public Action As String
-    Public OrigText As String
-    Public Value As String
 
 
 

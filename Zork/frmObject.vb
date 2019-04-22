@@ -54,7 +54,7 @@
             dgvProps.Rows.Add(arr)
         Next
 
-        Dim lst As List(Of clsObject) = Game.GetObjectsInRoom(Obj.Name)
+        Dim lst As List(Of clsObject) = Game.GetObjectsInRoomOrObject(Obj.Name)
         For Each Obj As clsObject In lst
             lbObjectsHere.Items.Add(Obj.Name)
 
@@ -77,7 +77,7 @@
         Dim R As clsRoutine = Game.GetRoutine(Key)
 
         If R IsNot Nothing Then
-            Using f As New frmRoutine(R)
+            Using f As New frmNameValue(R)
                 f.ShowDialog()
             End Using
         End If
@@ -107,7 +107,7 @@
         Dim R As clsRoutine = Game.GetRoutine(Key)
 
         If R IsNot Nothing Then
-            Using f As New frmRoutine(R)
+            Using f As New frmNameValue(R)
                 f.ShowDialog()
             End Using
         End If
@@ -161,9 +161,11 @@
         ElseIf key.StartsWith("PER ") Then
             Dim action As String = key.Substring(4).Trim
             Dim A As clsRoutine = Game.GetRoutine(action)
-            Using f As New frmRoutine(A)
-                f.ShowDialog()
-            End Using
+            If A IsNot Nothing Then
+                Using f As New frmNameValue(A)
+                    f.ShowDialog()
+                End Using
+            End If
         Else
             MsgBox(key)
         End If
@@ -206,6 +208,10 @@
             End If
         End If
 
+
+    End Sub
+
+    Private Sub lbObjectsHere_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbObjectsHere.SelectedIndexChanged
 
     End Sub
 End Class

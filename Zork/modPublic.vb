@@ -207,4 +207,43 @@
         [Global]
 
     End Enum
+
+
+
+    Public Sub ShowThingDialog(Thing As clsBase)
+
+        Using f As Form = GetThingDialog(Thing)
+            f.ShowDialog()
+        End Using
+
+
+    End Sub
+
+
+
+    Public Function GetThingDialog(Thing As clsBase) As Windows.Forms.Form
+        Select Case Thing.GetType.Name
+            Case GetType(clsRoom).Name
+                Return New frmRoom(Thing)
+            Case GetType(clsObject).Name
+                Return New frmObject(Thing)
+            Case GetType(clsRoutine).Name
+                Return New frmNameValue(Thing)
+            Case GetType(clsMacro).Name
+                Return New frmNameValue(Thing)
+            Case GetType(clsGlobal).Name
+                Return New frmNameValue(Thing)
+            Case GetType(clsSyntax).Name
+                Return New frmNameValue(Thing)
+            Case GetType(clsSynonym).Name
+                Return New frmNameValue(Thing)
+
+            Case Else
+                Throw New Exception("Get Thing Dialog unhandled")
+
+        End Select
+
+
+    End Function
+
 End Module

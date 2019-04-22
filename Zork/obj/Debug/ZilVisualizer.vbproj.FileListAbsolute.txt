@@ -26,8 +26,6 @@ C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\Zork
 C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\Zork.frmObject.resources
 C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\Zork.frmRoom.resources
 C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\Zork.frmGlobal.resources
-C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\Zork.frmMacro.resources
-C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\Zork.frmRoutine.resources
 C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\Zork.Resources.resources
 C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\Zork.ucFind.resources
 C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\ZilVisualizer.vbproj.GenerateResource.cache
@@ -40,3 +38,4 @@ C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\bin\Debug\Zork
 C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\bin\Debug\Zork.pdb
 C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\bin\Debug\Zork.xml
 C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\ZilVisualizer.vbprojAssemblyReference.cache
+C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\Zork.frmNameValue.resources

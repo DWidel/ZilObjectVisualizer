@@ -22,6 +22,8 @@
                 lst = Game.Routines.Cast(Of clsBase).ToList
             Case ObjTypes.Macro
                 lst = Game.Macros.Cast(Of clsBase).ToList
+            Case ObjTypes.Global
+                lst = Game.Globals.Cast(Of clsBase).ToList
         End Select
         Return lst
 

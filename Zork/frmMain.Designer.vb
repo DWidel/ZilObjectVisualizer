@@ -34,7 +34,6 @@ Partial Class frmMain
         Me.pnlRoutine = New System.Windows.Forms.Panel()
         Me.lbRoutines = New System.Windows.Forms.ListBox()
         Me.tpGlobals = New System.Windows.Forms.TabPage()
-        Me.Label4 = New System.Windows.Forms.Label()
         Me.pnlGlobals = New System.Windows.Forms.Panel()
         Me.lbGlobals = New System.Windows.Forms.ListBox()
         Me.tpSyntax = New System.Windows.Forms.TabPage()
@@ -60,6 +59,7 @@ Partial Class frmMain
         Me.fndRoom = New Zork.ucFind()
         Me.fndObject = New Zork.ucFind()
         Me.fndRoutine = New Zork.ucFind()
+        Me.fndGlobals = New Zork.ucFind()
         Me.fndMacro = New Zork.ucFind()
         Me.TabControl1.SuspendLayout()
         Me.tpRooms.SuspendLayout()
@@ -193,32 +193,23 @@ Partial Class frmMain
         '
         'tpGlobals
         '
-        Me.tpGlobals.Controls.Add(Me.Label4)
+        Me.tpGlobals.Controls.Add(Me.fndGlobals)
         Me.tpGlobals.Controls.Add(Me.pnlGlobals)
         Me.tpGlobals.Controls.Add(Me.lbGlobals)
         Me.tpGlobals.Location = New System.Drawing.Point(4, 22)
         Me.tpGlobals.Name = "tpGlobals"
         Me.tpGlobals.Size = New System.Drawing.Size(1296, 500)
         Me.tpGlobals.TabIndex = 4
-        Me.tpGlobals.Text = "Globals"
+        Me.tpGlobals.Text = "Globals/Constants"
         Me.tpGlobals.UseVisualStyleBackColor = True
-        '
-        'Label4
-        '
-        Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(3, 3)
-        Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(42, 13)
-        Me.Label4.TabIndex = 7
-        Me.Label4.Text = "Globals"
         '
         'pnlGlobals
         '
         Me.pnlGlobals.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.pnlGlobals.Location = New System.Drawing.Point(156, 19)
+        Me.pnlGlobals.Location = New System.Drawing.Point(195, 19)
         Me.pnlGlobals.Name = "pnlGlobals"
-        Me.pnlGlobals.Size = New System.Drawing.Size(561, 477)
+        Me.pnlGlobals.Size = New System.Drawing.Size(522, 477)
         Me.pnlGlobals.TabIndex = 8
         '
         'lbGlobals
@@ -226,9 +217,9 @@ Partial Class frmMain
         Me.lbGlobals.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.lbGlobals.FormattingEnabled = True
-        Me.lbGlobals.Location = New System.Drawing.Point(6, 19)
+        Me.lbGlobals.Location = New System.Drawing.Point(6, 32)
         Me.lbGlobals.Name = "lbGlobals"
-        Me.lbGlobals.Size = New System.Drawing.Size(143, 472)
+        Me.lbGlobals.Size = New System.Drawing.Size(183, 459)
         Me.lbGlobals.TabIndex = 6
         '
         'tpSyntax
@@ -459,6 +450,13 @@ Partial Class frmMain
         Me.fndRoutine.Size = New System.Drawing.Size(194, 27)
         Me.fndRoutine.TabIndex = 14
         '
+        'fndGlobals
+        '
+        Me.fndGlobals.Location = New System.Drawing.Point(2, 2)
+        Me.fndGlobals.Name = "fndGlobals"
+        Me.fndGlobals.Size = New System.Drawing.Size(194, 27)
+        Me.fndGlobals.TabIndex = 15
+        '
         'fndMacro
         '
         Me.fndMacro.Location = New System.Drawing.Point(2, 2)
@@ -480,7 +478,6 @@ Partial Class frmMain
         Me.tpObjects.ResumeLayout(False)
         Me.tpRoutines.ResumeLayout(False)
         Me.tpGlobals.ResumeLayout(False)
-        Me.tpGlobals.PerformLayout()
         Me.tpSyntax.ResumeLayout(False)
         CType(Me.dgvSyns, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.dgvSyntax, System.ComponentModel.ISupportInitialize).EndInit()
@@ -507,7 +504,6 @@ Partial Class frmMain
     Friend WithEvents pnlRoutine As Panel
     Friend WithEvents lbRoutines As ListBox
     Friend WithEvents tpGlobals As TabPage
-    Friend WithEvents Label4 As Label
     Friend WithEvents pnlGlobals As Panel
     Friend WithEvents lbGlobals As ListBox
     Friend WithEvents tpSyntax As TabPage
@@ -533,4 +529,5 @@ Partial Class frmMain
     Friend WithEvents fndObject As ucFind
     Friend WithEvents fndRoutine As ucFind
     Friend WithEvents fndMacro As ucFind
+    Friend WithEvents fndGlobals As ucFind
 End Class

@@ -113,16 +113,16 @@ Partial Class frmObject
         '
         'txtAdj
         '
-        Me.txtAdj.Location = New System.Drawing.Point(52, 317)
+        Me.txtAdj.Location = New System.Drawing.Point(52, 318)
         Me.txtAdj.Multiline = True
         Me.txtAdj.Name = "txtAdj"
-        Me.txtAdj.Size = New System.Drawing.Size(654, 16)
+        Me.txtAdj.Size = New System.Drawing.Size(654, 18)
         Me.txtAdj.TabIndex = 7
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(-2, 313)
+        Me.Label4.Location = New System.Drawing.Point(-2, 316)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(56, 13)
         Me.Label4.TabIndex = 6
@@ -137,7 +137,7 @@ Partial Class frmObject
         '
         'txtGlobal
         '
-        Me.txtGlobal.Location = New System.Drawing.Point(52, 441)
+        Me.txtGlobal.Location = New System.Drawing.Point(52, 444)
         Me.txtGlobal.Name = "txtGlobal"
         Me.txtGlobal.Size = New System.Drawing.Size(220, 20)
         Me.txtGlobal.TabIndex = 11
@@ -145,7 +145,7 @@ Partial Class frmObject
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(9, 444)
+        Me.Label6.Location = New System.Drawing.Point(9, 447)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(37, 13)
         Me.Label6.TabIndex = 10
@@ -173,7 +173,7 @@ Partial Class frmObject
         Me.txtSyn.Location = New System.Drawing.Point(52, 294)
         Me.txtSyn.Multiline = True
         Me.txtSyn.Name = "txtSyn"
-        Me.txtSyn.Size = New System.Drawing.Size(654, 16)
+        Me.txtSyn.Size = New System.Drawing.Size(654, 18)
         Me.txtSyn.TabIndex = 21
         '
         'Label10
@@ -187,7 +187,7 @@ Partial Class frmObject
         '
         'txtText
         '
-        Me.txtText.Location = New System.Drawing.Point(52, 338)
+        Me.txtText.Location = New System.Drawing.Point(52, 341)
         Me.txtText.Multiline = True
         Me.txtText.Name = "txtText"
         Me.txtText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
@@ -197,7 +197,7 @@ Partial Class frmObject
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(7, 341)
+        Me.Label11.Location = New System.Drawing.Point(7, 344)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(28, 13)
         Me.Label11.TabIndex = 22
@@ -214,7 +214,7 @@ Partial Class frmObject
         '
         'txtFDesc
         '
-        Me.txtFDesc.Location = New System.Drawing.Point(52, 416)
+        Me.txtFDesc.Location = New System.Drawing.Point(52, 419)
         Me.txtFDesc.Name = "txtFDesc"
         Me.txtFDesc.Size = New System.Drawing.Size(654, 20)
         Me.txtFDesc.TabIndex = 28
@@ -222,7 +222,7 @@ Partial Class frmObject
         'Label14
         '
         Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(7, 419)
+        Me.Label14.Location = New System.Drawing.Point(7, 422)
         Me.Label14.Name = "Label14"
         Me.Label14.Size = New System.Drawing.Size(38, 13)
         Me.Label14.TabIndex = 27
@@ -351,7 +351,7 @@ Partial Class frmObject
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.pnlObjRefs.Location = New System.Drawing.Point(712, 6)
         Me.pnlObjRefs.Name = "pnlObjRefs"
-        Me.pnlObjRefs.Size = New System.Drawing.Size(379, 455)
+        Me.pnlObjRefs.Size = New System.Drawing.Size(379, 470)
         Me.pnlObjRefs.TabIndex = 47
         '
         'txtLoc
@@ -375,7 +375,7 @@ Partial Class frmObject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1094, 468)
+        Me.ClientSize = New System.Drawing.Size(1094, 483)
         Me.Controls.Add(Me.lblLoc)
         Me.Controls.Add(Me.txtLoc)
         Me.Controls.Add(Me.pnlObjRefs)

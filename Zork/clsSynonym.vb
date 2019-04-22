@@ -1,8 +1,7 @@
 ﻿Public Class clsSynonym
+    Inherits clsNameValue
 
 
-    Public Name As String
-    Public OrigText As String
     Public Values As New List(Of String)
 
     Public Type As String = "" 'Verb,Adj, Prep,
@@ -20,7 +19,7 @@
 
         Values = ConvertToList(Remainder, False)
         Name = Values(0)
-
+        Value = String.Join(",", Values)
 
 
 

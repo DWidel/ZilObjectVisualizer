@@ -1,13 +1,18 @@
 ﻿Public Class clsGlobal
-
-    Public Name As String
-    Public Value As String
-    Public Text As String
+    Inherits clsNameValue
 
 
-    Public Sub New(txt As String)
-        Me.Text = txt
 
+    Public Type As VarType = VarType.Global
+
+    Public Enum VarType
+        [Global]
+        Constant
+    End Enum
+
+    Public Sub New(txt As String, vt As VarType)
+        Me.OrigText = txt
+        Me.Type = vt
         Me.Name = GetSecondWord(txt)
         Me.Value = txt.Substring(txt.IndexOf(Name) + Name.Length).Trim
 

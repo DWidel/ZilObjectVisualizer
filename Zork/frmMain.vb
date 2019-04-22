@@ -47,6 +47,7 @@
         fndObject.Init(lbObjects, ObjTypes.Object)
         fndRoutine.Init(lbRoutines, ObjTypes.Routine)
         fndMacro.Init(lbMacro, ObjTypes.Macro)
+        fndGlobals.Init(lbGlobals, ObjTypes.Global)
 
     End Sub
 
@@ -188,11 +189,11 @@
         ClearPanel(pnlRoutine)
 
         Dim Obj As clsRoutine = lbRoutines.SelectedItem
-        Dim f As New frmRoutine(Obj)
+            Dim f As New frmNameValue(Obj)
             f.FormBorderStyle = FormBorderStyle.None
             f.Dock = DockStyle.Fill
-        f.TopLevel = False
-        pnlRoutine.Controls.Add(f)
+            f.TopLevel = False
+            pnlRoutine.Controls.Add(f)
             f.Show()
             Nav.AddLink(ObjTypes.Routine, Obj.Name)
 
@@ -215,7 +216,7 @@
             ClearPanel(pnlGlobals)
 
             Dim G As clsGlobal = lbGlobals.SelectedItem
-            Dim f As New frmGlobal(G)
+            Dim f As New frmNameValue(G)
             f.FormBorderStyle = FormBorderStyle.None
             f.Dock = DockStyle.Fill
             f.TopLevel = False
@@ -232,15 +233,15 @@
     Private Sub dgvSyntax_SelectionChanged(sender As Object, e As EventArgs) Handles dgvSyntax.SelectionChanged
         Try
             Dim R As DataGridViewRow = dgvSyntax.SelectedRows(0)
-        Dim Action As String = R.Cells(1).Value.ToString
-        Dim txt As String = R.Cells(0).Value.ToString
+            Dim Action As String = R.Cells(1).Value.ToString
+            Dim txt As String = R.Cells(0).Value.ToString
 
-        Dim Rtn As clsRoutine = Game.GetRoutine(Action)
-        If Rtn IsNot Nothing Then
-            pnlSyntax.Controls.Clear()
+            Dim Rtn As clsRoutine = Game.GetRoutine(Action)
+            If Rtn IsNot Nothing Then
+                pnlSyntax.Controls.Clear()
 
-            Dim f As New frmRoutine(Rtn)
-            f.FormBorderStyle = FormBorderStyle.None
+                Dim f As New frmNameValue(Rtn)
+                f.FormBorderStyle = FormBorderStyle.None
             f.Dock = DockStyle.Fill
             f.TopLevel = False
             pnlSyntax.Controls.Add(f)
@@ -367,8 +368,8 @@
 
         ClearPanel(pnlMacro)
         Dim M As clsMacro = lbMacro.SelectedItem
-        Dim f As New frmMacro(M)
-        f.FormBorderStyle = FormBorderStyle.None
+            Dim f As New frmNameValue(M)
+            f.FormBorderStyle = FormBorderStyle.None
         f.Dock = DockStyle.Fill
         f.TopLevel = False
         pnlMacro.Controls.Add(f)
@@ -421,4 +422,7 @@
 
     End Sub
 
+    Private Sub dgvSyntax_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSyntax.CellContentClick
+
+    End Sub
 End Class

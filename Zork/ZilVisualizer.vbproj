@@ -77,6 +77,7 @@
     <Compile Include="clsDirections.vb" />
     <Compile Include="clsGlobal.vb" />
     <Compile Include="clsMacro.vb" />
+    <Compile Include="clsNameValue.vb" />
     <Compile Include="clsObject.vb" />
     <Compile Include="clsRoom.vb" />
     <Compile Include="clsSynonym.vb" />
@@ -131,16 +132,10 @@
     <Compile Include="frmGlobal.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmMacro.Designer.vb">
-      <DependentUpon>frmMacro.vb</DependentUpon>
+    <Compile Include="frmNameValue.Designer.vb">
+      <DependentUpon>frmNameValue.vb</DependentUpon>
     </Compile>
-    <Compile Include="frmMacro.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="frmRoutine.Designer.vb">
-      <DependentUpon>frmRoutine.vb</DependentUpon>
-    </Compile>
-    <Compile Include="frmRoutine.vb">
+    <Compile Include="frmNameValue.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="modPublic.vb" />
@@ -193,11 +188,8 @@
     <EmbeddedResource Include="frmGlobal.resx">
       <DependentUpon>frmGlobal.vb</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmMacro.resx">
-      <DependentUpon>frmMacro.vb</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="frmRoutine.resx">
-      <DependentUpon>frmRoutine.vb</DependentUpon>
+    <EmbeddedResource Include="frmNameValue.resx">
+      <DependentUpon>frmNameValue.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>

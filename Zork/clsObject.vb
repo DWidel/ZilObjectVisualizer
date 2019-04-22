@@ -2,10 +2,8 @@
     Inherits clsBase
 
 
-    Public Name As String
     Public IsIn As String
     Public Location As String
-    Public OrigText As String
     Public Text As String
     Public Synonyms As New List(Of String)
     Public Adjectives As New List(Of String)
@@ -41,6 +39,7 @@
         Dim Remainder As String = txt.Substring(txt.IndexOf(Name) + Name.Length).Trim
         Dim lst As List(Of String) = SplitParenths(Remainder)
 
+        Dim ctr As Integer = 0
         For Each chunk As String In lst
             Dim FirstWord As String = GetFirstWord(chunk)
             Dim Remainder2 As String = chunk.Substring(chunk.IndexOf(FirstWord) + FirstWord.Length).Trim
@@ -69,7 +68,14 @@
                 'Case "SIZE"
                 '    Me.Size = Remainder2
                 Case "IN"
-                    Me.IsIn = Remainder2
+                    'If it's first it seems to mean samething as location.
+                    'E.G. Hitch
+                    'Otherwise it's a direction. 
+                    If ctr = 0 Then
+                        Me.IsIn = Remainder2
+                    Else
+                        AddPropToDic(Props, FirstWord, Remainder2)
+                    End If
                 Case "ACTION"
                     Me.Action = Remainder2
                 Case "GLOBAL"
@@ -85,12 +91,12 @@
                 Case "LOC"
                     Me.Location = Remainder2
                 Case Else
-                    'Props.Add(FirstWord, Remainder2)
 
                     AddPropToDic(Props, FirstWord, Remainder2)
 
             End Select
 
+            ctr += 1
         Next
 
 

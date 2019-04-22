@@ -47,7 +47,7 @@
             lbObjects.Items.Add(Obj)
         Next
 
-        Dim lst As List(Of clsObject) = Game.GetObjectsInRoom(Room.Name)
+        Dim lst As List(Of clsObject) = Game.GetObjectsInRoomOrObject(Room.Name)
         For Each Obj As clsObject In lst
             lbObjectsHere.Items.Add(Obj.Name)
 
@@ -73,7 +73,7 @@
         Dim R As clsRoutine = Game.GetRoutine(Key)
 
         If R IsNot Nothing Then
-            Using f As New frmRoutine(R)
+            Using f As New frmNameValue(R)
                 f.ShowDialog()
             End Using
         End If
@@ -122,7 +122,7 @@
         ElseIf key.StartsWith("PER ") Then
             Dim action As String = key.Substring(4).Trim
             Dim A As clsRoutine = Game.GetRoutine(action)
-            Using f As New frmRoutine(A)
+            Using f As New frmNameValue(A)
                 f.ShowDialog()
             End Using
         Else
@@ -161,7 +161,7 @@
         Dim key As String = dgvPseudos.SelectedRows(0).Cells(1).Value.ToString
 
         Dim A As clsRoutine = Game.GetRoutine(key)
-        Using f As New frmRoutine(A)
+        Using f As New frmNameValue(A)
             f.ShowDialog()
         End Using
 

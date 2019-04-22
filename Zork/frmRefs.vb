@@ -1,5 +1,9 @@
 ﻿Public Class frmRefs
 
+    'This was intended to show where a routine was referenced by looking in known places
+    'that contain routines in objects and rooms, then just a text search in routines.
+
+
     Private Refs As List(Of String)
 
 
@@ -73,7 +77,7 @@
         Dim R As clsRoutine = Game.GetRoutine(key)
 
         If R IsNot Nothing Then
-            Using f As New frmRoutine(R)
+            Using f As New frmNameValue(R)
                 f.ShowDialog()
             End Using
         End If

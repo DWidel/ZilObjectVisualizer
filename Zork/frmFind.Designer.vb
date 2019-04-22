@@ -26,6 +26,7 @@ Partial Class frmFind
         Me.btnFind = New System.Windows.Forms.Button()
         Me.txtFilter = New System.Windows.Forms.TextBox()
         Me.dgv = New System.Windows.Forms.DataGridView()
+        Me.pnl = New System.Windows.Forms.Panel()
         Me.colType = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colSample = New System.Windows.Forms.DataGridViewTextBoxColumn()
@@ -56,36 +57,49 @@ Partial Class frmFind
         Me.dgv.AllowUserToDeleteRows = False
         Me.dgv.AllowUserToOrderColumns = True
         Me.dgv.AllowUserToResizeRows = False
+        Me.dgv.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgv.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colType, Me.colName, Me.colSample, Me.colObject})
-        Me.dgv.Location = New System.Drawing.Point(12, 55)
+        Me.dgv.Location = New System.Drawing.Point(4, 40)
         Me.dgv.MultiSelect = False
         Me.dgv.Name = "dgv"
         Me.dgv.ReadOnly = True
         Me.dgv.RowHeadersVisible = False
         Me.dgv.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgv.Size = New System.Drawing.Size(462, 406)
+        Me.dgv.Size = New System.Drawing.Size(328, 421)
         Me.dgv.TabIndex = 19
+        '
+        'pnl
+        '
+        Me.pnl.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnl.Location = New System.Drawing.Point(336, 12)
+        Me.pnl.Name = "pnl"
+        Me.pnl.Size = New System.Drawing.Size(833, 458)
+        Me.pnl.TabIndex = 20
         '
         'colType
         '
         Me.colType.HeaderText = "Type"
         Me.colType.Name = "colType"
         Me.colType.ReadOnly = True
+        Me.colType.Width = 40
         '
         'colName
         '
         Me.colName.HeaderText = "Name"
         Me.colName.Name = "colName"
         Me.colName.ReadOnly = True
-        Me.colName.Width = 150
+        Me.colName.Width = 110
         '
         'colSample
         '
         Me.colSample.HeaderText = "Sample"
         Me.colSample.Name = "colSample"
         Me.colSample.ReadOnly = True
-        Me.colSample.Width = 200
+        Me.colSample.Width = 150
         '
         'colObject
         '
@@ -98,7 +112,8 @@ Partial Class frmFind
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(916, 473)
+        Me.ClientSize = New System.Drawing.Size(1172, 473)
+        Me.Controls.Add(Me.pnl)
         Me.Controls.Add(Me.dgv)
         Me.Controls.Add(Me.btnFind)
         Me.Controls.Add(Me.txtFilter)
@@ -113,6 +128,7 @@ Partial Class frmFind
     Friend WithEvents btnFind As Button
     Friend WithEvents txtFilter As TextBox
     Friend WithEvents dgv As DataGridView
+    Friend WithEvents pnl As Panel
     Friend WithEvents colType As DataGridViewTextBoxColumn
     Friend WithEvents colName As DataGridViewTextBoxColumn
     Friend WithEvents colSample As DataGridViewTextBoxColumn

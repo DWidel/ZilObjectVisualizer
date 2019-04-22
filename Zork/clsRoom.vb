@@ -2,9 +2,6 @@
     Inherits clsBase
 
 
-
-    Public Name As String
-    Public OrigText As String
     Public IsIn As String
     Public LDesc As String
     Public Desc As String

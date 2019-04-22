@@ -238,7 +238,7 @@
                 Dim O As New clsObject(txt)
                 Objects.Add(O)
             Case "GLOBAL"
-                Dim G As New clsGlobal(txt)
+                Dim G As New clsGlobal(txt, clsGlobal.VarType.Global)
                 Globals.Add(G)
             Case "ROUTINE"
                 If secondword = "RT-RM-PARADE-AREA" Then
@@ -265,7 +265,8 @@
                 'CONSTANT F-CONSCIOUS 4
                 'CONSTANT F-FIRST? 5
                 'TODO
-                Dim ii As Integer = 0
+                Dim G As New clsGlobal(txt, clsGlobal.VarType.Constant)
+                Globals.Add(G)
             Case "COND"
                 'TODO
                 Dim ii As Integer = 0
@@ -281,7 +282,11 @@
                 Dim R As New clsMacro(txt)
                 Macros.Add(R)
             Case "DEFINE"
-                'todo
+                'TRY ROUTINE for Bureaucracy
+                Dim R As New clsRoutine(txt)
+                Routines.Add(R)
+
+
             Case "VERSION"
                 'todo
             Case "SET"
@@ -353,6 +358,11 @@
             Case "BUILD-FORM"
             Case "DEFINE-GLOBALS"
             Case "LINK" 'HollywoodHijinx  'TODO?
+
+
+            Case "ROUTINE-FLAGS"
+                LogTextLst.Add(txt)
+
             Case Else
                 LogTextLst.Add("###################    UNKNOWN COMMAND: " & command & "#################")
         End Select
@@ -390,10 +400,10 @@
 
 
 
-    Public Function GetObjectsInRoom(RoomName As String) As List(Of clsObject)
+    Public Function GetObjectsInRoomOrObject(Name As String) As List(Of clsObject)
         Dim lst As New List(Of clsObject)
         For Each R As clsObject In Objects
-            If R.IsIn = RoomName OrElse R.Location = RoomName Then lst.Add(R)
+            If R.IsIn = Name OrElse R.Location = Name Then lst.Add(R)
         Next
 
         Return lst
@@ -502,8 +512,7 @@
 
 
     Public ObjRefDic As Dictionary(Of String, List(Of String))
-
-    'This is a list of where a routine is used.  Checks Room, objects and does text search in other routines
+    'This is a list of where an object is used.  Checks Room, objects and does text search in   routines
     Private Sub GetObjRefDic()
 
         ObjRefDic = New Dictionary(Of String, List(Of String))

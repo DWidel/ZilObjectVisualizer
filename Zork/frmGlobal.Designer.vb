@@ -27,6 +27,8 @@ Partial Class frmGlobal
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
+        Me.lblConstant = New System.Windows.Forms.Label()
+        Me.lblGlobal = New System.Windows.Forms.Label()
         Me.SuspendLayout()
         '
         'txtValue
@@ -66,17 +68,37 @@ Partial Class frmGlobal
         Me.Label1.TabIndex = 6
         Me.Label1.Text = "Name"
         '
-        'frmRoutine
+        'lblConstant
+        '
+        Me.lblConstant.AutoSize = True
+        Me.lblConstant.Location = New System.Drawing.Point(283, 9)
+        Me.lblConstant.Name = "lblConstant"
+        Me.lblConstant.Size = New System.Drawing.Size(66, 13)
+        Me.lblConstant.TabIndex = 10
+        Me.lblConstant.Text = "CONSTANT"
+        '
+        'lblGlobal
+        '
+        Me.lblGlobal.AutoSize = True
+        Me.lblGlobal.Location = New System.Drawing.Point(364, 9)
+        Me.lblGlobal.Name = "lblGlobal"
+        Me.lblGlobal.Size = New System.Drawing.Size(49, 13)
+        Me.lblGlobal.TabIndex = 11
+        Me.lblGlobal.Text = "GLOBAL"
+        '
+        'frmGlobal
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.Controls.Add(Me.lblGlobal)
+        Me.Controls.Add(Me.lblConstant)
         Me.Controls.Add(Me.txtValue)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtName)
         Me.Controls.Add(Me.Label1)
-        Me.Name = "frmRoutine"
-        Me.Text = "frmRoutine"
+        Me.Name = "frmGlobal"
+        Me.Text = "Globals & Constants"
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -86,4 +108,6 @@ Partial Class frmGlobal
     Friend WithEvents Label3 As Label
     Friend WithEvents txtName As TextBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents lblConstant As Label
+    Friend WithEvents lblGlobal As Label
 End Class

@@ -10,6 +10,6 @@
     End Sub
 
     Private Sub frmOriginalText_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-
+        TextBox1.SelectionLength = 0
     End Sub
 End Class

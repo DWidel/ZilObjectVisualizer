@@ -162,4 +162,13 @@
         txtFilename.Text = lbRecent.SelectedItem
         btnLoad.PerformClick()
     End Sub
+
+    Private Sub lbRecent_MouseClick(sender As Object, e As MouseEventArgs) Handles lbRecent.MouseClick
+        Try
+
+            txtFilename.Text = lbRecent.SelectedItem
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 End Class

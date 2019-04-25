@@ -79,10 +79,12 @@
     <Compile Include="clsMacro.vb" />
     <Compile Include="clsNameValue.vb" />
     <Compile Include="clsObject.vb" />
+    <Compile Include="clsPseudo.vb" />
     <Compile Include="clsRoom.vb" />
     <Compile Include="clsSynonym.vb" />
     <Compile Include="clsSyntax.vb" />
     <Compile Include="clsRoutine.vb" />
+    <Compile Include="FileMap.vb" />
     <Compile Include="frmFind.Designer.vb">
       <DependentUpon>frmFind.vb</DependentUpon>
     </Compile>

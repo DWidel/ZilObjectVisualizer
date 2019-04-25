@@ -23,6 +23,8 @@
     End Enum
 
 
+
+
     Public Sub ParseFile(Filename As String)
         Path = IO.Path.GetDirectoryName(Filename)
         LastFileInserted = IO.Path.GetFileName(Filename)
@@ -128,6 +130,8 @@
 
                                             Dim NewText As String = IO.File.ReadAllText(NewFilename)
                                         txt = txt.Insert(i + 1, NewText)
+
+
                                         LastFileInserted = IO.Path.GetFileName(NewFilename)
                                             Me.LogTextLst.Add("######################################################################")
                                             Me.LogTextLst.Add("######                                       Inserted File: " & NewFilename)
@@ -403,7 +407,7 @@
     Public Function GetObjectsInRoomOrObject(Name As String) As List(Of clsObject)
         Dim lst As New List(Of clsObject)
         For Each R As clsObject In Objects
-            If R.IsIn = Name OrElse R.Location = Name Then lst.Add(R)
+            If R.Parent = Name Then lst.Add(R)
         Next
 
         Return lst
@@ -467,12 +471,12 @@
                 If Not RoutineDic(act).Contains(val) Then RoutineDic(act).Add(val)
             End If
 
-            For Each act As String In R.Pseudos.Values
-                If Not RoutineDic.ContainsKey(act) Then
-                    RoutineDic.Add(act, New Generic.List(Of String))
+            For Each ps As clsPseudo In R.Pseudos
+                If Not RoutineDic.ContainsKey(ps.Routine) Then
+                    RoutineDic.Add(ps.Routine, New Generic.List(Of String))
                 End If
                 Dim val As String = "R-" & R.Name
-                If Not RoutineDic(act).Contains(val) Then RoutineDic(act).Add(val)
+                If Not RoutineDic(ps.Routine).Contains(val) Then RoutineDic(ps.Routine).Add(val)
             Next
         Next
 

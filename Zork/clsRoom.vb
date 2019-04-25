@@ -2,18 +2,18 @@
     Inherits clsBase
 
 
-    Public IsIn As String
+    Public Parent As String
     Public LDesc As String
     Public Desc As String
     Public Action As String
     Public Objects As New List(Of String)
     Public Value As String
-    Public PSEUDO As String
+    'Public PSEUDO As String
 
 
     Public Flags As New List(Of String)
     Public Directions As New Dictionary(Of String, String)
-    Public Pseudos As New Dictionary(Of String, String)
+    Public Pseudos As New List(Of clsPseudo) ' Dictionary(Of String, clsPseudo)
     Public Synonyms As New List(Of String)
 
     Public Props As New Dictionary(Of String, String)
@@ -34,7 +34,7 @@
             Dim FirstWord As String = GetFirstWord(chunk)
             Dim Remainder2 As String = chunk.Substring(chunk.IndexOf(FirstWord) + FirstWord.Length).Trim
             If i = 0 And FirstWord = "IN" Then
-                Me.IsIn = Remainder2
+                Me.Parent = Remainder2
                 Continue For
             End If
 
@@ -57,14 +57,19 @@
                     'PSEUDO "CHASM" CHASM-PSEUDO
                     'PSEUDO "DOOR" DOOR-PSEUDO "PAINT" PAINT-PSEUDO
                     'TODO
-                    Me.PSEUDO = Remainder2
+                    'Me.PSEUDO = Remainder2
                     Dim ss() As String = Remainder2.Split(" ")
                     For idx As Integer = 0 To ss.Count - 1 Step 2
                         Dim key As String = TrimQuotes(ss(idx))
                         Dim action As String = ss(idx + 1)
                         If key <> "" AndAlso action <> "" Then
+                            Dim ps As New clsPseudo(key, action)
+                            Pseudos.Add(ps)
+                            'If Not Me.Pseudos.ContainsKey(key) Then
+                            '    Me.Pseudos.Add(key, ps)
+                            'End If
                             'Pseudos.Add(key, action)
-                            AddPropToDic(Me.Pseudos, key, action)
+                            'AddPropToDic(Me.Pseudos, key, action)
                         End If
 
                     Next

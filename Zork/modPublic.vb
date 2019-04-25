@@ -94,38 +94,161 @@
 
     End Function
 
-    'This is a hack, you shouldn't really split on (), but it seems to work most of the time.
+    ''This is a hack, you shouldn't really split on (), but it seems to work most of the time.
+    'Public Function SplitParenths(txt As String) As List(Of String)
+    '    Dim lst As New List(Of String)
+    '    Dim Chunk As String = ""
+
+    '    Dim IsChunk As Boolean = False
+
+    '    Dim PrevC As String = ""
+    '    For i As Integer = 0 To txt.Length - 1
+    '        Dim C As String = txt.Substring(i, 1)
+
+    '        If Not IsChunk Then
+    '            If C = "(" AndAlso PrevC <> ";" Then
+    '                IsChunk = True
+    '            End If
+
+    '        Else
+    '            If C = ")" Then
+    '                IsChunk = False
+    '                lst.Add(Chunk)
+    '                Chunk = ""
+    '            Else
+    '                Chunk &= C
+    '            End If
+
+    '        End If
+
+    '        PrevC = C
+    '    Next
+
+    '    Return lst
+
+    'End Function
+
     Public Function SplitParenths(txt As String) As List(Of String)
-        Dim lst As New List(Of String)
-        Dim Chunk As String = ""
 
-        Dim IsChunk As Boolean = False
+        Dim chunks As New List(Of String)
+        Dim temp As String = ""
+        Dim CommentedOut As Boolean = False
 
-        Dim PrevC As String = ""
-        For i As Integer = 0 To txt.Length - 1
-            Dim C As String = txt.Substring(i, 1)
 
-            If Not IsChunk Then
-                If C = "(" AndAlso PrevC <> ";" Then
-                    IsChunk = True
-                End If
+        Dim idx As Integer = 0
 
-            Else
-                If C = ")" Then
-                    IsChunk = False
-                    lst.Add(Chunk)
-                    Chunk = ""
-                Else
-                    Chunk &= C
-                End If
 
+        While idx < txt.Count
+
+            Dim C As String = txt.Substring(idx, 1)
+
+            'skip until not whitespace
+            Do Until Not IsWhiteSpace(C)
+                idx += 1
+                If idx >= txt.Count Then Exit While
+                C = txt.Substring(idx, 1)
+            Loop
+
+            'check for a comment mark; if it is keep chunk but mark chunk.
+            If C = ";" Then
+                CommentedOut = True
+                temp = ";"
+                Do
+                    idx += 1
+                    If idx >= txt.Count Then Exit While
+                    C = txt.Substring(idx, 1)
+                Loop Until Not IsWhiteSpace(C)
             End If
 
-            PrevC = C
-        Next
 
-        Return lst
 
+            Select Case C
+                Case """" 'text mode ' Is Comment, was expecting a (
+                    Do
+                        idx += 1
+                        C = txt.Substring(idx, 1)
+                        If C = "\" Then
+                            'next character is escaped
+                            idx += 1
+                            C = txt.Substring(idx, 1)
+                            temp &= C
+                            idx += 1
+                            C = txt.Substring(idx, 1)
+                        Else
+                            temp &= C
+                        End If
+
+                    Loop Until C = """"
+                    temp = "" 'Throw away comment
+
+
+                Case "("
+                    'START OF CHUNK.  Look for end paren
+                    Dim Paren = 1
+                    Do
+                        idx += 1
+                        C = txt.Substring(idx, 1)
+                        Select Case C
+                            Case "("
+                                Paren += 1
+                            Case ")"
+                                Paren -= 1
+                                If Paren = 0 Then
+                                    Exit Do
+                                End If
+                            Case "\"
+                                'next character is escaped
+                                idx += 1
+                                C = txt.Substring(idx, 1)
+
+                            Case """"
+                                'loop until find next unescaped quote
+                                Do
+                                    idx += 1
+                                    If idx >= txt.Count Then Exit While
+                                    C = txt.Substring(idx, 1)
+                                    If C = "\" Then
+                                        'next character is escaped
+                                        idx += 1
+                                        C = txt.Substring(idx, 1)
+                                        temp &= C
+                                        C = ""
+                                        'idx += 1
+                                        'C = txt.Substring(idx, 1)
+                                    ElseIf C = """" Then
+
+                                    Else
+                                        temp &= C
+                                    End If
+
+                                Loop Until C = """"
+                                C = ""
+                        End Select
+                        temp &= C
+                    Loop Until False
+
+
+                    chunks.Add(temp)
+                    temp = ""
+            End Select
+
+
+
+            idx += 1
+
+        End While 'look for next chunk
+
+        Return chunks
+
+    End Function
+
+    Private Function IsWhiteSpace(c As String) As Boolean
+        Select Case c
+            Case " ", vbTab, vbCr, vbLf
+                Return True
+            Case Else
+                Return False
+        End Select
     End Function
 
 
@@ -133,20 +256,35 @@
 
         Dim lst As New List(Of String)
 
-        Dim word As String = ""
-        For i As Integer = 0 To txt.Length - 1
-            Dim C As String = txt.Substring(i, 1)
 
-            If C = " " OrElse C = vbTab OrElse C = vbCr OrElse C = vbLf Then
-                lst.Add(word.Trim)
-                word = ""
-            Else
+        Dim idx As Integer = 0
+
+        While True
+
+            Dim C As String = txt.Substring(idx, 1)
+
+            Do Until Not IsWhiteSpace(C)
+                idx += 1
+                If idx >= txt.Count Then Exit While
+                C = txt.Substring(idx, 1)
+            Loop
+
+
+            Dim word As String = ""
+            Do
                 word &= C
-            End If
+                idx += 1
+                If idx >= txt.Count Then Exit While
+                C = txt.Substring(idx, 1)
 
-        Next
+            Loop Until IsWhiteSpace(C)
 
-        If word <> "" Then lst.Add(word)
+            lst.Add(word)
+
+
+
+        End While
+
 
         If SkipFirstWord And lst.Count > 0 Then
             lst.RemoveAt(0)

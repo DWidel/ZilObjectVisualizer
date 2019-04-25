@@ -32,12 +32,12 @@
         txtSyn.Text = String.Join(",", Obj.Synonyms.ToArray)
         txtText.Text = Obj.Text
 
-        txtIsIn.Text = Obj.IsIn
+        txtParent.Text = Obj.Parent
         txtDescFcn.Text = Obj.DESCFCN
         txtFDesc.Text = Obj.FDesc
         'txtGlobal.Text = Obj.Globals
         lbObjects.DataSource = Obj.Objects
-        txtLoc.Text = Obj.Location
+
 
         'txtSize.Text = Obj.Size
         'txtTValue.Text = Obj.TValue
@@ -173,21 +173,12 @@
 
     End Sub
 
-    Private Sub lblLoc_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblLoc.LinkClicked
-
-        Try
-            HandleNav(txtLoc.Text)
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
-    End Sub
-
 
 
     Private Sub lblIN_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblIN.LinkClicked
         Try
 
-            HandleNav(txtIsIn.Text)
+            HandleNav(txtParent.Text)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -213,5 +204,33 @@
 
     Private Sub lbObjectsHere_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbObjectsHere.SelectedIndexChanged
 
+    End Sub
+
+    Private Sub txtParent_TextChanged(sender As Object, e As EventArgs) Handles txtParent.TextChanged
+
+    End Sub
+
+    Private Sub btnText_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles btnText.LinkClicked
+        If txtText.Text <> "" Then
+            Dim txt As String = txtText.Text
+            txt = txt.Replace(vbLf, " ").Replace(vbCr, " ")
+            txt = txt.Replace("|", vbCrLf)
+            Using f As New frmOriginalText(txt)
+                f.Text = "Formatted Text"
+                f.ShowDialog()
+            End Using
+        End If
+    End Sub
+
+    Private Sub btnFDesc_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles btnFDesc.LinkClicked
+        If txtFDesc.Text <> "" Then
+            Dim txt As String = txtFDesc.Text
+            txt = txt.Replace(vbLf, " ").Replace(vbCr, " ")
+            txt = txt.Replace("|", vbCrLf)
+            Using f As New frmOriginalText(txt)
+                f.Text = "Formatted Text"
+                f.ShowDialog()
+            End Using
+        End If
     End Sub
 End Class

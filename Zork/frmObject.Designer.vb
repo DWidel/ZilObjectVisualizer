@@ -31,17 +31,13 @@ Partial Class frmObject
         Me.txtAdj = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtAction = New System.Windows.Forms.TextBox()
-        Me.txtGlobal = New System.Windows.Forms.TextBox()
-        Me.Label6 = New System.Windows.Forms.Label()
-        Me.txtIsIn = New System.Windows.Forms.TextBox()
+        Me.txtParent = New System.Windows.Forms.TextBox()
         Me.lblIN = New System.Windows.Forms.LinkLabel()
         Me.txtSyn = New System.Windows.Forms.TextBox()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.txtText = New System.Windows.Forms.TextBox()
-        Me.Label11 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
         Me.txtFDesc = New System.Windows.Forms.TextBox()
-        Me.Label14 = New System.Windows.Forms.Label()
         Me.lblDescFcn = New System.Windows.Forms.LinkLabel()
         Me.txtDescFcn = New System.Windows.Forms.TextBox()
         Me.lblAction = New System.Windows.Forms.LinkLabel()
@@ -56,8 +52,8 @@ Partial Class frmObject
         Me.lbObjects = New System.Windows.Forms.ListBox()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.pnlObjRefs = New System.Windows.Forms.Panel()
-        Me.txtLoc = New System.Windows.Forms.TextBox()
-        Me.lblLoc = New System.Windows.Forms.LinkLabel()
+        Me.btnText = New System.Windows.Forms.LinkLabel()
+        Me.btnFDesc = New System.Windows.Forms.LinkLabel()
         CType(Me.dgvProps, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -73,7 +69,7 @@ Partial Class frmObject
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(166, 6)
+        Me.Label2.Location = New System.Drawing.Point(198, 6)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(32, 13)
         Me.Label2.TabIndex = 1
@@ -83,18 +79,20 @@ Partial Class frmObject
         '
         Me.txtName.Location = New System.Drawing.Point(52, 3)
         Me.txtName.Name = "txtName"
-        Me.txtName.Size = New System.Drawing.Size(100, 20)
+        Me.txtName.Size = New System.Drawing.Size(137, 20)
         Me.txtName.TabIndex = 2
         '
         'txtDesc
         '
-        Me.txtDesc.Location = New System.Drawing.Point(204, 3)
+        Me.txtDesc.Location = New System.Drawing.Point(236, 3)
         Me.txtDesc.Name = "txtDesc"
-        Me.txtDesc.Size = New System.Drawing.Size(100, 20)
+        Me.txtDesc.Size = New System.Drawing.Size(137, 20)
         Me.txtDesc.TabIndex = 3
         '
         'txtLDesc
         '
+        Me.txtLDesc.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.txtLDesc.Location = New System.Drawing.Point(52, 29)
         Me.txtLDesc.Multiline = True
         Me.txtLDesc.Name = "txtLDesc"
@@ -113,7 +111,9 @@ Partial Class frmObject
         '
         'txtAdj
         '
-        Me.txtAdj.Location = New System.Drawing.Point(52, 318)
+        Me.txtAdj.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtAdj.Location = New System.Drawing.Point(52, 363)
         Me.txtAdj.Multiline = True
         Me.txtAdj.Name = "txtAdj"
         Me.txtAdj.Size = New System.Drawing.Size(654, 18)
@@ -121,8 +121,9 @@ Partial Class frmObject
         '
         'Label4
         '
+        Me.Label4.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(-2, 316)
+        Me.Label4.Location = New System.Drawing.Point(-2, 361)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(56, 13)
         Me.Label4.TabIndex = 6
@@ -135,42 +136,28 @@ Partial Class frmObject
         Me.txtAction.Size = New System.Drawing.Size(146, 20)
         Me.txtAction.TabIndex = 9
         '
-        'txtGlobal
+        'txtParent
         '
-        Me.txtGlobal.Location = New System.Drawing.Point(52, 444)
-        Me.txtGlobal.Name = "txtGlobal"
-        Me.txtGlobal.Size = New System.Drawing.Size(220, 20)
-        Me.txtGlobal.TabIndex = 11
-        '
-        'Label6
-        '
-        Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(9, 447)
-        Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(37, 13)
-        Me.Label6.TabIndex = 10
-        Me.Label6.Text = "Global"
-        '
-        'txtIsIn
-        '
-        Me.txtIsIn.Location = New System.Drawing.Point(344, 3)
-        Me.txtIsIn.Name = "txtIsIn"
-        Me.txtIsIn.Size = New System.Drawing.Size(121, 20)
-        Me.txtIsIn.TabIndex = 15
+        Me.txtParent.Location = New System.Drawing.Point(475, 3)
+        Me.txtParent.Name = "txtParent"
+        Me.txtParent.Size = New System.Drawing.Size(121, 20)
+        Me.txtParent.TabIndex = 15
         '
         'lblIN
         '
         Me.lblIN.AutoSize = True
-        Me.lblIN.Location = New System.Drawing.Point(320, 6)
+        Me.lblIN.Location = New System.Drawing.Point(390, 6)
         Me.lblIN.Name = "lblIN"
-        Me.lblIN.Size = New System.Drawing.Size(18, 13)
+        Me.lblIN.Size = New System.Drawing.Size(77, 13)
         Me.lblIN.TabIndex = 14
         Me.lblIN.TabStop = True
-        Me.lblIN.Text = "IN"
+        Me.lblIN.Text = "Parent (In,Loc)"
         '
         'txtSyn
         '
-        Me.txtSyn.Location = New System.Drawing.Point(52, 294)
+        Me.txtSyn.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtSyn.Location = New System.Drawing.Point(52, 339)
         Me.txtSyn.Multiline = True
         Me.txtSyn.Name = "txtSyn"
         Me.txtSyn.Size = New System.Drawing.Size(654, 18)
@@ -178,8 +165,9 @@ Partial Class frmObject
         '
         'Label10
         '
+        Me.Label10.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.Label10.AutoSize = True
-        Me.Label10.Location = New System.Drawing.Point(-2, 294)
+        Me.Label10.Location = New System.Drawing.Point(-2, 339)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(55, 13)
         Me.Label10.TabIndex = 20
@@ -187,21 +175,14 @@ Partial Class frmObject
         '
         'txtText
         '
-        Me.txtText.Location = New System.Drawing.Point(52, 341)
+        Me.txtText.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtText.Location = New System.Drawing.Point(52, 386)
         Me.txtText.Multiline = True
         Me.txtText.Name = "txtText"
         Me.txtText.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.txtText.Size = New System.Drawing.Size(654, 72)
         Me.txtText.TabIndex = 23
-        '
-        'Label11
-        '
-        Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(7, 344)
-        Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(28, 13)
-        Me.Label11.TabIndex = 22
-        Me.Label11.Text = "Text"
         '
         'Label13
         '
@@ -214,19 +195,13 @@ Partial Class frmObject
         '
         'txtFDesc
         '
-        Me.txtFDesc.Location = New System.Drawing.Point(52, 419)
+        Me.txtFDesc.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtFDesc.Location = New System.Drawing.Point(52, 464)
+        Me.txtFDesc.Multiline = True
         Me.txtFDesc.Name = "txtFDesc"
-        Me.txtFDesc.Size = New System.Drawing.Size(654, 20)
+        Me.txtFDesc.Size = New System.Drawing.Size(654, 48)
         Me.txtFDesc.TabIndex = 28
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(7, 422)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(38, 13)
-        Me.Label14.TabIndex = 27
-        Me.Label14.Text = "FDesc"
         '
         'lblDescFcn
         '
@@ -257,14 +232,17 @@ Partial Class frmObject
         '
         'lbFlags
         '
+        Me.lbFlags.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lbFlags.FormattingEnabled = True
         Me.lbFlags.Location = New System.Drawing.Point(367, 131)
         Me.lbFlags.Name = "lbFlags"
-        Me.lbFlags.Size = New System.Drawing.Size(110, 160)
+        Me.lbFlags.Size = New System.Drawing.Size(110, 199)
         Me.lbFlags.TabIndex = 40
         '
         'Label5
         '
+        Me.Label5.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(364, 117)
         Me.Label5.Name = "Label5"
@@ -278,6 +256,9 @@ Partial Class frmObject
         Me.dgvProps.AllowUserToDeleteRows = False
         Me.dgvProps.AllowUserToOrderColumns = True
         Me.dgvProps.AllowUserToResizeRows = False
+        Me.dgvProps.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvProps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvProps.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colName, Me.colVal})
         Me.dgvProps.Location = New System.Drawing.Point(10, 131)
@@ -285,7 +266,7 @@ Partial Class frmObject
         Me.dgvProps.ReadOnly = True
         Me.dgvProps.RowHeadersVisible = False
         Me.dgvProps.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvProps.Size = New System.Drawing.Size(351, 157)
+        Me.dgvProps.Size = New System.Drawing.Size(351, 200)
         Me.dgvProps.TabIndex = 41
         '
         'colName
@@ -303,14 +284,17 @@ Partial Class frmObject
         '
         'lbObjectsHere
         '
+        Me.lbObjectsHere.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lbObjectsHere.FormattingEnabled = True
         Me.lbObjectsHere.Location = New System.Drawing.Point(596, 131)
         Me.lbObjectsHere.Name = "lbObjectsHere"
-        Me.lbObjectsHere.Size = New System.Drawing.Size(110, 160)
+        Me.lbObjectsHere.Size = New System.Drawing.Size(110, 199)
         Me.lbObjectsHere.TabIndex = 43
         '
         'Label7
         '
+        Me.Label7.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label7.AutoSize = True
         Me.Label7.Location = New System.Drawing.Point(594, 117)
         Me.Label7.Name = "Label7"
@@ -330,14 +314,17 @@ Partial Class frmObject
         '
         'lbObjects
         '
+        Me.lbObjects.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.lbObjects.FormattingEnabled = True
         Me.lbObjects.Location = New System.Drawing.Point(481, 131)
         Me.lbObjects.Name = "lbObjects"
-        Me.lbObjects.Size = New System.Drawing.Size(110, 160)
+        Me.lbObjects.Size = New System.Drawing.Size(110, 199)
         Me.lbObjects.TabIndex = 46
         '
         'Label9
         '
+        Me.Label9.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(482, 117)
         Me.Label9.Name = "Label9"
@@ -348,36 +335,42 @@ Partial Class frmObject
         'pnlObjRefs
         '
         Me.pnlObjRefs.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.pnlObjRefs.BackColor = System.Drawing.SystemColors.ControlDark
         Me.pnlObjRefs.Location = New System.Drawing.Point(712, 6)
         Me.pnlObjRefs.Name = "pnlObjRefs"
-        Me.pnlObjRefs.Size = New System.Drawing.Size(379, 470)
+        Me.pnlObjRefs.Size = New System.Drawing.Size(379, 514)
         Me.pnlObjRefs.TabIndex = 47
         '
-        'txtLoc
+        'LinkLabel1
         '
-        Me.txtLoc.Location = New System.Drawing.Point(542, 3)
-        Me.txtLoc.Name = "txtLoc"
-        Me.txtLoc.Size = New System.Drawing.Size(130, 20)
-        Me.txtLoc.TabIndex = 48
+        Me.btnText.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnText.AutoSize = True
+        Me.btnText.Location = New System.Drawing.Point(12, 389)
+        Me.btnText.Name = "LinkLabel1"
+        Me.btnText.Size = New System.Drawing.Size(28, 13)
+        Me.btnText.TabIndex = 48
+        Me.btnText.TabStop = True
+        Me.btnText.Text = "Text"
         '
-        'lblLoc
+        'lblFDesc
         '
-        Me.lblLoc.AutoSize = True
-        Me.lblLoc.Location = New System.Drawing.Point(511, 6)
-        Me.lblLoc.Name = "lblLoc"
-        Me.lblLoc.Size = New System.Drawing.Size(25, 13)
-        Me.lblLoc.TabIndex = 49
-        Me.lblLoc.TabStop = True
-        Me.lblLoc.Text = "Loc"
+        Me.btnFDesc.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.btnFDesc.AutoSize = True
+        Me.btnFDesc.Location = New System.Drawing.Point(12, 467)
+        Me.btnFDesc.Name = "lblFDesc"
+        Me.btnFDesc.Size = New System.Drawing.Size(38, 13)
+        Me.btnFDesc.TabIndex = 49
+        Me.btnFDesc.TabStop = True
+        Me.btnFDesc.Text = "FDesc"
         '
         'frmObject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1094, 483)
-        Me.Controls.Add(Me.lblLoc)
-        Me.Controls.Add(Me.txtLoc)
+        Me.ClientSize = New System.Drawing.Size(1094, 527)
+        Me.Controls.Add(Me.btnFDesc)
+        Me.Controls.Add(Me.btnText)
         Me.Controls.Add(Me.pnlObjRefs)
         Me.Controls.Add(Me.lbObjects)
         Me.Controls.Add(Me.Label9)
@@ -394,14 +387,10 @@ Partial Class frmObject
         Me.Controls.Add(Me.txtDescFcn)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.txtFDesc)
-        Me.Controls.Add(Me.Label14)
         Me.Controls.Add(Me.txtText)
-        Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label10)
-        Me.Controls.Add(Me.txtIsIn)
+        Me.Controls.Add(Me.txtParent)
         Me.Controls.Add(Me.lblIN)
-        Me.Controls.Add(Me.txtGlobal)
-        Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.txtAction)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.txtLDesc)
@@ -427,17 +416,13 @@ Partial Class frmObject
     Friend WithEvents txtAdj As TextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents txtAction As TextBox
-    Friend WithEvents txtGlobal As TextBox
-    Friend WithEvents Label6 As Label
-    Friend WithEvents txtIsIn As TextBox
+    Friend WithEvents txtParent As TextBox
     Friend WithEvents lblIN As LinkLabel
     Friend WithEvents txtSyn As TextBox
     Friend WithEvents Label10 As Label
     Friend WithEvents txtText As TextBox
-    Friend WithEvents Label11 As Label
     Friend WithEvents Label13 As Label
     Friend WithEvents txtFDesc As TextBox
-    Friend WithEvents Label14 As Label
     Friend WithEvents lblDescFcn As LinkLabel
     Friend WithEvents txtDescFcn As TextBox
     Friend WithEvents lblAction As LinkLabel
@@ -452,6 +437,6 @@ Partial Class frmObject
     Friend WithEvents lbObjects As ListBox
     Friend WithEvents Label9 As Label
     Friend WithEvents pnlObjRefs As Panel
-    Friend WithEvents txtLoc As TextBox
-    Friend WithEvents lblLoc As LinkLabel
+    Friend WithEvents btnText As LinkLabel
+    Friend WithEvents btnFDesc As LinkLabel
 End Class

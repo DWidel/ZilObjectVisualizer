@@ -2,8 +2,9 @@
     Inherits clsBase
 
 
-    Public IsIn As String
-    Public Location As String
+    'Public IsIn As String
+    'Public Location As String
+    Public Parent As String
     Public Text As String
     Public Synonyms As New List(Of String)
     Public Adjectives As New List(Of String)
@@ -67,12 +68,18 @@
                 '    Me.TValue = Remainder2
                 'Case "SIZE"
                 '    Me.Size = Remainder2
+                Case ";IN"
+                    If ctr = 0 Then
+                        ctr -= 1
+                        'if the first in is commented out, then don't inc ctr.
+                    End If
+                    AddPropToDic(Props, FirstWord, Remainder2)
                 Case "IN"
                     'If it's first it seems to mean samething as location.
                     'E.G. Hitch
                     'Otherwise it's a direction. 
                     If ctr = 0 Then
-                        Me.IsIn = Remainder2
+                        Me.Parent = Remainder2
                     Else
                         AddPropToDic(Props, FirstWord, Remainder2)
                     End If
@@ -89,7 +96,10 @@
                     'Case "VTYPE"
                     '    Me.VType = Remainder2
                 Case "LOC"
-                    Me.Location = Remainder2
+                    If Me.Parent <> "" Then
+                        Throw New Exception("Multiple Parents")
+                    End If
+                    Me.Parent = Remainder2
                 Case Else
 
                     AddPropToDic(Props, FirstWord, Remainder2)

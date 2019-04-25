@@ -13,12 +13,37 @@
 
         Nav = New Navigation(btnNavBack, btnNavForward)
 
-        lbRooms.DataSource = Game.Rooms
-        lbObjects.DataSource = Game.Objects
 
-        lbRoutines.DataSource = Game.Routines
-        lbGlobals.DataSource = Game.Globals
-        lbMacro.DataSource = Game.Macros
+        Dim qRooms =
+                From row In Game.Rooms Order By row.ToString Ascending
+                Select row
+        lbRooms.DataSource = qRooms.ToList
+
+
+        Dim qObjects =
+                From row In Game.Objects Order By row.ToString Ascending
+                Select row
+        lbObjects.DataSource = qObjects.ToList ' Me.Objects
+
+
+
+        Dim qRoutines =
+                From row In Game.Routines Order By row.ToString Ascending
+                Select row
+        lbRoutines.DataSource = qRoutines.ToList ' Me.Objects
+
+
+        Dim qGlobals =
+                From row In Game.Globals Order By row.ToString Ascending
+                Select row
+        lbGlobals.DataSource = qGlobals.ToList
+
+
+        Dim qMacros =
+                From row In Game.Macros Order By row.ToString Ascending
+                Select row
+        lbMacro.DataSource = qMacros.ToList
+
         lbLog.DataSource = Game.LogTextLst
 
         For Each S As clsSyntax In Game.Syntaxes
@@ -31,10 +56,15 @@
 
 
 
+        Dim qFlags =
+                From key In Game.FlagDic.Keys Order By key Ascending
+                Select key
 
-        For Each flag As String In Game.FlagDic.Keys
-            lbFlags.Items.Add(flag)
-        Next
+        lbFlags.DataSource = qFlags.ToList
+
+        'For Each flag As String In Game.FlagDic.Keys
+        '    lbFlags.Items.Add(flag)
+        'Next
 
         Dim fFind As New frmFind
         fFind.FormBorderStyle = FormBorderStyle.None
@@ -119,7 +149,7 @@
             If lbRooms.SelectedItem Is Nothing Then
                 Exit Sub
             End If
-            pnlRoom.Controls.Clear()
+
 
 
 
@@ -144,14 +174,42 @@
 
     Private Sub NavToRoom(R As clsRoom)
 
+        'Dim f As New frmRoom(R)
+        'f.FormBorderStyle = FormBorderStyle.None
+        'f.Dock = DockStyle.Fill
+        'f.TopLevel = False
+        'pnlRoom.Controls.Add(f)
+        'AddHandler f.NewRoom, AddressOf NewRoom
+        'f.Show()
+        'Nav.AddLink(ObjTypes.Room, R.Name)
+
+
+
+
+
+        Dim fOld As Form = Nothing
+        If pnlRoom.Controls.Count = 1 Then
+            fOld = pnlRoom.Controls(0)
+            fOld.BringToFront()
+        End If
+
         Dim f As New frmRoom(R)
         f.FormBorderStyle = FormBorderStyle.None
         f.Dock = DockStyle.Fill
         f.TopLevel = False
+        f.SendToBack()
         pnlRoom.Controls.Add(f)
         AddHandler f.NewRoom, AddressOf NewRoom
+
+
         f.Show()
         Nav.AddLink(ObjTypes.Room, R.Name)
+
+
+        If fOld IsNot Nothing Then
+            pnlRoom.Controls.RemoveAt(0)
+            fOld.Dispose()
+        End If
 
     End Sub
 
@@ -162,17 +220,31 @@
                 Exit Sub
             End If
 
-            ClearPanel(pnlObjects)
+
+
+            Dim fOld As Form = Nothing
+            If pnlObjects.Controls.Count = 1 Then
+                fOld = pnlObjects.Controls(0)
+                fOld.BringToFront()
+            End If
 
             Dim Obj As clsObject = lbObjects.SelectedItem
             Dim f As New frmObject(Obj)
             f.FormBorderStyle = FormBorderStyle.None
             f.Dock = DockStyle.Fill
             f.TopLevel = False
+            f.SendToBack()
             pnlObjects.Controls.Add(f)
             AddHandler f.NewObject, AddressOf NewObject
+
+
             f.Show()
             Nav.AddLink(ObjTypes.Object, Obj.Name)
+
+            If fOld IsNot Nothing Then
+                pnlObjects.Controls.RemoveAt(0)
+                fOld.Dispose()
+            End If
 
         Catch ex As Exception
             MsgBox(ex.ToString)
@@ -422,7 +494,5 @@
 
     End Sub
 
-    Private Sub dgvSyntax_CellContentClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSyntax.CellContentClick
 
-    End Sub
 End Class

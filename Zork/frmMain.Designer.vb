@@ -82,7 +82,7 @@ Partial Class frmMain
         Me.lbRooms.FormattingEnabled = True
         Me.lbRooms.Location = New System.Drawing.Point(6, 32)
         Me.lbRooms.Name = "lbRooms"
-        Me.lbRooms.Size = New System.Drawing.Size(195, 459)
+        Me.lbRooms.Size = New System.Drawing.Size(195, 563)
         Me.lbRooms.TabIndex = 0
         '
         'lbObjects
@@ -92,7 +92,7 @@ Partial Class frmMain
         Me.lbObjects.FormattingEnabled = True
         Me.lbObjects.Location = New System.Drawing.Point(6, 31)
         Me.lbObjects.Name = "lbObjects"
-        Me.lbObjects.Size = New System.Drawing.Size(194, 459)
+        Me.lbObjects.Size = New System.Drawing.Size(194, 563)
         Me.lbObjects.TabIndex = 3
         '
         'pnlRoom
@@ -101,7 +101,7 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.pnlRoom.Location = New System.Drawing.Point(207, 19)
         Me.pnlRoom.Name = "pnlRoom"
-        Me.pnlRoom.Size = New System.Drawing.Size(692, 477)
+        Me.pnlRoom.Size = New System.Drawing.Size(692, 587)
         Me.pnlRoom.TabIndex = 5
         '
         'TabControl1
@@ -121,7 +121,7 @@ Partial Class frmMain
         Me.TabControl1.Location = New System.Drawing.Point(12, 33)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
-        Me.TabControl1.Size = New System.Drawing.Size(1304, 526)
+        Me.TabControl1.Size = New System.Drawing.Size(1304, 636)
         Me.TabControl1.TabIndex = 6
         '
         'tpRooms
@@ -132,7 +132,7 @@ Partial Class frmMain
         Me.tpRooms.Location = New System.Drawing.Point(4, 22)
         Me.tpRooms.Name = "tpRooms"
         Me.tpRooms.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpRooms.Size = New System.Drawing.Size(1296, 500)
+        Me.tpRooms.Size = New System.Drawing.Size(1296, 610)
         Me.tpRooms.TabIndex = 0
         Me.tpRooms.Text = "Rooms"
         Me.tpRooms.UseVisualStyleBackColor = True
@@ -145,18 +145,19 @@ Partial Class frmMain
         Me.tpObjects.Location = New System.Drawing.Point(4, 22)
         Me.tpObjects.Name = "tpObjects"
         Me.tpObjects.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpObjects.Size = New System.Drawing.Size(1296, 500)
+        Me.tpObjects.Size = New System.Drawing.Size(1296, 610)
         Me.tpObjects.TabIndex = 1
         Me.tpObjects.Text = "Objects"
         Me.tpObjects.UseVisualStyleBackColor = True
         '
         'pnlObjects
         '
-        Me.pnlObjects.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.pnlObjects.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.pnlObjects.Location = New System.Drawing.Point(206, 19)
         Me.pnlObjects.Name = "pnlObjects"
-        Me.pnlObjects.Size = New System.Drawing.Size(1084, 478)
+        Me.pnlObjects.Size = New System.Drawing.Size(1084, 588)
         Me.pnlObjects.TabIndex = 6
         '
         'tpRoutines
@@ -167,7 +168,7 @@ Partial Class frmMain
         Me.tpRoutines.Location = New System.Drawing.Point(4, 22)
         Me.tpRoutines.Name = "tpRoutines"
         Me.tpRoutines.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpRoutines.Size = New System.Drawing.Size(1296, 500)
+        Me.tpRoutines.Size = New System.Drawing.Size(1296, 610)
         Me.tpRoutines.TabIndex = 3
         Me.tpRoutines.Text = "Routines"
         Me.tpRoutines.UseVisualStyleBackColor = True
@@ -178,7 +179,7 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.pnlRoutine.Location = New System.Drawing.Point(195, 19)
         Me.pnlRoutine.Name = "pnlRoutine"
-        Me.pnlRoutine.Size = New System.Drawing.Size(1027, 478)
+        Me.pnlRoutine.Size = New System.Drawing.Size(1027, 588)
         Me.pnlRoutine.TabIndex = 8
         '
         'lbRoutines
@@ -188,7 +189,7 @@ Partial Class frmMain
         Me.lbRoutines.FormattingEnabled = True
         Me.lbRoutines.Location = New System.Drawing.Point(6, 32)
         Me.lbRoutines.Name = "lbRoutines"
-        Me.lbRoutines.Size = New System.Drawing.Size(183, 459)
+        Me.lbRoutines.Size = New System.Drawing.Size(183, 563)
         Me.lbRoutines.TabIndex = 6
         '
         'tpGlobals
@@ -198,7 +199,7 @@ Partial Class frmMain
         Me.tpGlobals.Controls.Add(Me.lbGlobals)
         Me.tpGlobals.Location = New System.Drawing.Point(4, 22)
         Me.tpGlobals.Name = "tpGlobals"
-        Me.tpGlobals.Size = New System.Drawing.Size(1296, 500)
+        Me.tpGlobals.Size = New System.Drawing.Size(1296, 610)
         Me.tpGlobals.TabIndex = 4
         Me.tpGlobals.Text = "Globals/Constants"
         Me.tpGlobals.UseVisualStyleBackColor = True
@@ -209,7 +210,7 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.pnlGlobals.Location = New System.Drawing.Point(195, 19)
         Me.pnlGlobals.Name = "pnlGlobals"
-        Me.pnlGlobals.Size = New System.Drawing.Size(522, 477)
+        Me.pnlGlobals.Size = New System.Drawing.Size(522, 587)
         Me.pnlGlobals.TabIndex = 8
         '
         'lbGlobals
@@ -219,7 +220,7 @@ Partial Class frmMain
         Me.lbGlobals.FormattingEnabled = True
         Me.lbGlobals.Location = New System.Drawing.Point(6, 32)
         Me.lbGlobals.Name = "lbGlobals"
-        Me.lbGlobals.Size = New System.Drawing.Size(183, 459)
+        Me.lbGlobals.Size = New System.Drawing.Size(183, 563)
         Me.lbGlobals.TabIndex = 6
         '
         'tpSyntax
@@ -229,7 +230,7 @@ Partial Class frmMain
         Me.tpSyntax.Controls.Add(Me.dgvSyntax)
         Me.tpSyntax.Location = New System.Drawing.Point(4, 22)
         Me.tpSyntax.Name = "tpSyntax"
-        Me.tpSyntax.Size = New System.Drawing.Size(1296, 500)
+        Me.tpSyntax.Size = New System.Drawing.Size(1296, 610)
         Me.tpSyntax.TabIndex = 5
         Me.tpSyntax.Text = "Syntax"
         Me.tpSyntax.UseVisualStyleBackColor = True
@@ -254,7 +255,7 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.pnlSyntax.Location = New System.Drawing.Point(703, 22)
         Me.pnlSyntax.Name = "pnlSyntax"
-        Me.pnlSyntax.Size = New System.Drawing.Size(590, 270)
+        Me.pnlSyntax.Size = New System.Drawing.Size(590, 380)
         Me.pnlSyntax.TabIndex = 22
         '
         'dgvSyntax
@@ -272,7 +273,7 @@ Partial Class frmMain
         Me.dgvSyntax.ReadOnly = True
         Me.dgvSyntax.RowHeadersVisible = False
         Me.dgvSyntax.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvSyntax.Size = New System.Drawing.Size(679, 481)
+        Me.dgvSyntax.Size = New System.Drawing.Size(679, 591)
         Me.dgvSyntax.TabIndex = 21
         '
         'colValue
@@ -297,7 +298,7 @@ Partial Class frmMain
         Me.tpFlags.Controls.Add(Me.lbFlags)
         Me.tpFlags.Location = New System.Drawing.Point(4, 22)
         Me.tpFlags.Name = "tpFlags"
-        Me.tpFlags.Size = New System.Drawing.Size(1296, 500)
+        Me.tpFlags.Size = New System.Drawing.Size(1296, 610)
         Me.tpFlags.TabIndex = 6
         Me.tpFlags.Text = "Flags"
         Me.tpFlags.UseVisualStyleBackColor = True
@@ -325,7 +326,7 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.pnlFlag.Location = New System.Drawing.Point(204, 20)
         Me.pnlFlag.Name = "pnlFlag"
-        Me.pnlFlag.Size = New System.Drawing.Size(692, 477)
+        Me.pnlFlag.Size = New System.Drawing.Size(692, 587)
         Me.pnlFlag.TabIndex = 12
         '
         'lbFlags
@@ -335,7 +336,7 @@ Partial Class frmMain
         Me.lbFlags.FormattingEnabled = True
         Me.lbFlags.Location = New System.Drawing.Point(3, 33)
         Me.lbFlags.Name = "lbFlags"
-        Me.lbFlags.Size = New System.Drawing.Size(195, 459)
+        Me.lbFlags.Size = New System.Drawing.Size(195, 563)
         Me.lbFlags.TabIndex = 11
         '
         'tpMacros
@@ -346,7 +347,7 @@ Partial Class frmMain
         Me.tpMacros.Location = New System.Drawing.Point(4, 22)
         Me.tpMacros.Name = "tpMacros"
         Me.tpMacros.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpMacros.Size = New System.Drawing.Size(1296, 500)
+        Me.tpMacros.Size = New System.Drawing.Size(1296, 610)
         Me.tpMacros.TabIndex = 7
         Me.tpMacros.Text = "Macros"
         Me.tpMacros.UseVisualStyleBackColor = True
@@ -357,7 +358,7 @@ Partial Class frmMain
             Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.pnlMacro.Location = New System.Drawing.Point(193, 19)
         Me.pnlMacro.Name = "pnlMacro"
-        Me.pnlMacro.Size = New System.Drawing.Size(1025, 478)
+        Me.pnlMacro.Size = New System.Drawing.Size(1025, 588)
         Me.pnlMacro.TabIndex = 14
         '
         'lbMacro
@@ -367,7 +368,7 @@ Partial Class frmMain
         Me.lbMacro.FormattingEnabled = True
         Me.lbMacro.Location = New System.Drawing.Point(2, 32)
         Me.lbMacro.Name = "lbMacro"
-        Me.lbMacro.Size = New System.Drawing.Size(185, 459)
+        Me.lbMacro.Size = New System.Drawing.Size(185, 563)
         Me.lbMacro.TabIndex = 13
         '
         'tpFindText
@@ -375,7 +376,7 @@ Partial Class frmMain
         Me.tpFindText.Location = New System.Drawing.Point(4, 22)
         Me.tpFindText.Name = "tpFindText"
         Me.tpFindText.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpFindText.Size = New System.Drawing.Size(1296, 500)
+        Me.tpFindText.Size = New System.Drawing.Size(1296, 610)
         Me.tpFindText.TabIndex = 8
         Me.tpFindText.Text = "Find Text"
         Me.tpFindText.UseVisualStyleBackColor = True
@@ -386,7 +387,7 @@ Partial Class frmMain
         Me.tpParseLog.Location = New System.Drawing.Point(4, 22)
         Me.tpParseLog.Name = "tpParseLog"
         Me.tpParseLog.Padding = New System.Windows.Forms.Padding(3)
-        Me.tpParseLog.Size = New System.Drawing.Size(1296, 500)
+        Me.tpParseLog.Size = New System.Drawing.Size(1296, 610)
         Me.tpParseLog.TabIndex = 2
         Me.tpParseLog.Text = "Parse Log"
         Me.tpParseLog.UseVisualStyleBackColor = True
@@ -399,7 +400,7 @@ Partial Class frmMain
         Me.lbLog.FormattingEnabled = True
         Me.lbLog.Location = New System.Drawing.Point(6, 15)
         Me.lbLog.Name = "lbLog"
-        Me.lbLog.Size = New System.Drawing.Size(1255, 446)
+        Me.lbLog.Size = New System.Drawing.Size(1255, 550)
         Me.lbLog.TabIndex = 0
         '
         'ToolStrip1
@@ -468,7 +469,7 @@ Partial Class frmMain
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1328, 583)
+        Me.ClientSize = New System.Drawing.Size(1328, 670)
         Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.TabControl1)
         Me.Name = "frmMain"

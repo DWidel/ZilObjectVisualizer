@@ -34,6 +34,7 @@ Partial Class frmOriginalText
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
         Me.TextBox1.Size = New System.Drawing.Size(800, 450)
         Me.TextBox1.TabIndex = 0
+        Me.TextBox1.TabStop = False
         '
         'frmOriginalText
         '

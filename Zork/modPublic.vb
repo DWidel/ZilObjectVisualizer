@@ -265,7 +265,9 @@
 
             Do Until Not IsWhiteSpace(C)
                 idx += 1
-                If idx >= txt.Count Then Exit While
+                If idx >= txt.Count Then
+                    Exit While
+                End If
                 C = txt.Substring(idx, 1)
             Loop
 
@@ -274,7 +276,10 @@
             Do
                 word &= C
                 idx += 1
-                If idx >= txt.Count Then Exit While
+                If idx >= txt.Count Then
+                    lst.Add(word)
+                    Exit While
+                End If
                 C = txt.Substring(idx, 1)
 
             Loop Until IsWhiteSpace(C)

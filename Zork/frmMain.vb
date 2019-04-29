@@ -1,6 +1,5 @@
 ﻿Public Class frmMain
 
-
     Private Sub frmMain_Load(sender As Object, e As EventArgs) Handles MyBase.Load
 
 
@@ -138,10 +137,12 @@
         For Each R As clsGlobal In lbGlobals.Items
             If R.Name = name Then
                 lbGlobals.SelectedItem = R
+                TabControl1.SelectedTab = tpGlobals
                 Exit For
             End If
         Next
     End Sub
+
 
 
     Private Sub lbRooms_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbRooms.SelectedIndexChanged
@@ -200,6 +201,7 @@
         f.SendToBack()
         pnlRoom.Controls.Add(f)
         AddHandler f.NewRoom, AddressOf NewRoom
+        AddHandler f.JumpTo, AddressOf JumpToX
 
 
         f.Show()
@@ -236,7 +238,7 @@
             f.SendToBack()
             pnlObjects.Controls.Add(f)
             AddHandler f.NewObject, AddressOf NewObject
-
+            AddHandler f.JumpTo, AddressOf JumpToX
 
             f.Show()
             Nav.AddLink(ObjTypes.Object, Obj.Name)
@@ -255,12 +257,12 @@
         Try
 
             If lbRoutines.SelectedItem Is Nothing Then
-            Exit Sub
-        End If
+                Exit Sub
+            End If
 
-        ClearPanel(pnlRoutine)
+            ClearPanel(pnlRoutine)
 
-        Dim Obj As clsRoutine = lbRoutines.SelectedItem
+            Dim Obj As clsRoutine = lbRoutines.SelectedItem
             Dim f As New frmNameValue(Obj)
             f.FormBorderStyle = FormBorderStyle.None
             f.Dock = DockStyle.Fill
@@ -314,65 +316,65 @@
 
                 Dim f As New frmNameValue(Rtn)
                 f.FormBorderStyle = FormBorderStyle.None
-            f.Dock = DockStyle.Fill
-            f.TopLevel = False
-            pnlSyntax.Controls.Add(f)
-            f.Show()
+                f.Dock = DockStyle.Fill
+                f.TopLevel = False
+                pnlSyntax.Controls.Add(f)
+                f.Show()
 
-        End If
+            End If
 
-        dgvSyns.Columns.Clear()
+            dgvSyns.Columns.Clear()
 
-        Dim lst As List(Of String) = ConvertToList(txt, False)
-        Dim dic As New Dictionary(Of String, clsSynonym)
-        Dim collst As New List(Of String)
-        For Each word As String In lst
-            word = word.Trim
-            If word = "OBJECT" Then Continue For
-            If word.StartsWith("(") Then Exit For
+            Dim lst As List(Of String) = ConvertToList(txt, False)
+            Dim dic As New Dictionary(Of String, clsSynonym)
+            Dim collst As New List(Of String)
+            For Each word As String In lst
+                word = word.Trim
+                If word = "OBJECT" Then Continue For
+                If word.StartsWith("(") Then Exit For
                 collst.Add(word)
                 Dim c As New DataGridViewColumn(New DataGridViewTextBoxCell)
-            c.HeaderText = word
-            dgvSyns.Columns.Add(c)
+                c.HeaderText = word
+                dgvSyns.Columns.Add(c)
 
-            Dim syn As clsSynonym = Game.GetSyn(word)
-            If syn IsNot Nothing Then
-                dic.Add(word, syn)
-            Else
-                dic.Add(word, Nothing)
+                Dim syn As clsSynonym = Game.GetSyn(word)
+                If syn IsNot Nothing Then
+                    dic.Add(word, syn)
+                Else
+                    dic.Add(word, Nothing)
+                End If
+
+
+            Next
+
+            Dim RowCnt As Integer = 0
+            For i As Integer = 0 To collst.Count - 1
+                Dim syn As clsSynonym = dic(collst(i))
+                If syn Is Nothing Then Continue For
+                If syn.Values.Count > RowCnt Then
+                    RowCnt = syn.Values.Count
+                End If
+            Next
+
+
+            If RowCnt > 0 Then
+
+                Dim RowIdx As Integer = 0
+                Do
+
+                    Dim arr(collst.Count) As String
+
+                    For i As Integer = 0 To collst.Count - 1
+                        Dim syn As clsSynonym = dic(collst(i))
+                        If syn Is Nothing Then Continue For
+                        If syn.Values.Count > RowIdx Then
+                            arr(i) = syn.Values(RowIdx)
+                        End If
+                    Next
+                    dgvSyns.Rows.Add(arr)
+                    RowIdx += 1
+                Loop Until RowIdx >= RowCnt
             End If
-
-
-        Next
-
-        Dim RowCnt As Integer = 0
-        For i As Integer = 0 To collst.Count - 1
-            Dim syn As clsSynonym = dic(collst(i))
-            If syn Is Nothing Then Continue For
-            If syn.Values.Count > RowCnt Then
-                RowCnt = syn.Values.Count
-            End If
-        Next
-
-
-        If RowCnt > 0 Then
-
-            Dim RowIdx As Integer = 0
-            Do
-
-                Dim arr(collst.Count) As String
-
-                For i As Integer = 0 To collst.Count - 1
-                    Dim syn As clsSynonym = dic(collst(i))
-                    If syn Is Nothing Then Continue For
-                    If syn.Values.Count > RowIdx Then
-                        arr(i) = syn.Values(RowIdx)
-                    End If
-                Next
-                dgvSyns.Rows.Add(arr)
-                RowIdx += 1
-            Loop Until RowIdx >= RowCnt
-        End If
 
 
 
@@ -386,15 +388,15 @@
     Private Sub btnFlagFind_Click(sender As Object, e As EventArgs) Handles btnFlagFind.Click
         Try
             Dim key As String = txtFlagFilter.Text.ToUpper
-        Dim idx As Integer = 0
+            Dim idx As Integer = 0
 
-        idx = lbFlags.SelectedIndex
-        For i As Integer = idx + 1 To Game.FlagDic.Values.Count - 1
-            If Game.FlagDic.Values(i).ToString.ToUpper.Contains(key) Then
-                lbFlags.SelectedIndex = i
-                Exit Sub
-            End If
-        Next
+            idx = lbFlags.SelectedIndex
+            For i As Integer = idx + 1 To Game.FlagDic.Values.Count - 1
+                If Game.FlagDic.Values(i).ToString.ToUpper.Contains(key) Then
+                    lbFlags.SelectedIndex = i
+                    Exit Sub
+                End If
+            Next
 
             For i As Integer = 0 To idx - 1
                 If Game.FlagDic.Values(i).ToString.ToUpper.Contains(key) Then
@@ -411,17 +413,17 @@
     Private Sub lbFlags_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbFlags.SelectedIndexChanged
         Try
             If lbFlags.SelectedItem Is Nothing Then
-            Exit Sub
-        End If
+                Exit Sub
+            End If
 
-        ClearPanel(pnlFlag)
+            ClearPanel(pnlFlag)
 
-        Dim key As String = lbFlags.SelectedItem
-        Dim f As New frmRefs(Game.FlagDic(key), key)
-        f.FormBorderStyle = FormBorderStyle.None
-        f.Dock = DockStyle.Fill
-        f.TopLevel = False
-        pnlFlag.Controls.Add(f)
+            Dim key As String = lbFlags.SelectedItem
+            Dim f As New frmRefs(Game.FlagDic(key), key)
+            f.FormBorderStyle = FormBorderStyle.None
+            f.Dock = DockStyle.Fill
+            f.TopLevel = False
+            pnlFlag.Controls.Add(f)
             f.Show()
 
             Nav.AddLink(ObjTypes.Flag, key)
@@ -435,16 +437,16 @@
     Private Sub lbMacro_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbMacro.SelectedIndexChanged
         Try
             If lbMacro.SelectedItem Is Nothing Then
-            Exit Sub
-        End If
+                Exit Sub
+            End If
 
-        ClearPanel(pnlMacro)
-        Dim M As clsMacro = lbMacro.SelectedItem
+            ClearPanel(pnlMacro)
+            Dim M As clsMacro = lbMacro.SelectedItem
             Dim f As New frmNameValue(M)
             f.FormBorderStyle = FormBorderStyle.None
-        f.Dock = DockStyle.Fill
-        f.TopLevel = False
-        pnlMacro.Controls.Add(f)
+            f.Dock = DockStyle.Fill
+            f.TopLevel = False
+            pnlMacro.Controls.Add(f)
             f.Show()
 
             Nav.AddLink(ObjTypes.Macro, M.Name)
@@ -458,7 +460,7 @@
         Try
 
             Dim L As Navigation.Lnk = Nav.Back
-        NavigateToLnk(L)
+            NavigateToLnk(L)
 
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -494,5 +496,24 @@
 
     End Sub
 
+    Private Sub JumpToX(x As clsBase)
+        Select Case x.ThingType
+            Case ObjTypes.Room
+                NewRoom(x.Name)
+            Case ObjTypes.Global
+                NewGlobal(x.Name)
+            Case ObjTypes.Macro
+                NewMacro(x.Name)
+            Case ObjTypes.Object
+                NewObject(x.Name)
+            Case ObjTypes.Routine
+                NewRoutine(x.Name)
+                'Case ObjTypes.Synonym
 
+                'Case ObjTypes.Syntax
+
+
+        End Select
+
+    End Sub
 End Class

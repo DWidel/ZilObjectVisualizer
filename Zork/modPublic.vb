@@ -348,7 +348,9 @@
         Flag
         Macro
         [Global]
-
+        Synonym
+        Syntax
+        Pseudo
     End Enum
 
 
@@ -388,5 +390,21 @@
 
 
     End Function
+
+
+    Public Sub ShowFormattedText(txt As String, SuppressLF As Boolean)
+        If txt.Trim = "" Then Exit Sub
+
+
+        If SuppressLF Then
+            txt = txt.Replace(vbLf, "").Replace(vbCr, "")
+        End If
+        txt = txt.Replace("|", vbCrLf)
+        Using f As New frmOriginalText(txt)
+            f.Text = "Formatted Text"
+            f.ShowDialog()
+        End Using
+
+    End Sub
 
 End Module

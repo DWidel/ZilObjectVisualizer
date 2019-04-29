@@ -47,8 +47,8 @@
         If IsRoutine Then
             Dim key As String = Thing.Name
 
-            If key IsNot Nothing AndAlso Game.RoutineDic.ContainsKey(key) Then
-                Dim f2 As New frmRefs(Game.RoutineDic(key), key)
+            If key IsNot Nothing AndAlso Game.RoutineRefDic.ContainsKey(key) Then
+                Dim f2 As New frmRefs(Game.RoutineRefDic(key), key)
                 f2.FormBorderStyle = FormBorderStyle.None
                 f2.Dock = DockStyle.Fill
                 f2.TopLevel = False

@@ -179,8 +179,12 @@
     Public Sub Finish()
         SetDirections
         GetFlagsDic()
-        GeRoutineDic()
+        GetRoutineDic()
         GetObjRefDic()
+        LoadGlobalConstantDictionary()
+        LoadRoutineDictionary()
+        LoadObjectDictionary()
+        LoadRoomDictionary()
     End Sub
     Public Sub NewText(txt As String)
         If txt.Length > 500 Then
@@ -452,31 +456,31 @@
 
     End Sub
 
-    Public RoutineDic As Dictionary(Of String, List(Of String))
+    Public RoutineRefDic As Dictionary(Of String, List(Of String))
 
     'This is a list of where a routine is used.  Checks Room, objects and does text search in other routines
-    Private Sub GeRoutineDic()
+    Private Sub GetRoutineDic()
 
-        RoutineDic = New Dictionary(Of String, List(Of String))
+        RoutineRefDic = New Dictionary(Of String, List(Of String))
 
 
         For Each R As clsRoom In Rooms
             If R.Action IsNot Nothing Then
                 Dim Act As String = R.Action
 
-                If Not RoutineDic.ContainsKey(Act) Then
-                    RoutineDic.Add(Act, New Generic.List(Of String))
+                If Not RoutineRefDic.ContainsKey(Act) Then
+                    RoutineRefDic.Add(Act, New Generic.List(Of String))
                 End If
                 Dim val As String = "R-" & R.Name
-                If Not RoutineDic(act).Contains(val) Then RoutineDic(act).Add(val)
+                If Not RoutineRefDic(Act).Contains(val) Then RoutineRefDic(Act).Add(val)
             End If
 
             For Each ps As clsPseudo In R.Pseudos
-                If Not RoutineDic.ContainsKey(ps.Routine) Then
-                    RoutineDic.Add(ps.Routine, New Generic.List(Of String))
+                If Not RoutineRefDic.ContainsKey(ps.Routine) Then
+                    RoutineRefDic.Add(ps.Routine, New Generic.List(Of String))
                 End If
                 Dim val As String = "R-" & R.Name
-                If Not RoutineDic(ps.Routine).Contains(val) Then RoutineDic(ps.Routine).Add(val)
+                If Not RoutineRefDic(ps.Routine).Contains(val) Then RoutineRefDic(ps.Routine).Add(val)
             Next
         Next
 
@@ -484,28 +488,28 @@
             If R.Action IsNot Nothing Then
 
                 Dim Act As String = R.Action
-                If Not RoutineDic.ContainsKey(Act) Then
-                    RoutineDic.Add(Act, New Generic.List(Of String))
+                If Not RoutineRefDic.ContainsKey(Act) Then
+                    RoutineRefDic.Add(Act, New Generic.List(Of String))
                 End If
                 Dim val As String = "O-" & R.Name
-                If Not RoutineDic(Act).Contains(val) Then RoutineDic(Act).Add(val)
+                If Not RoutineRefDic(Act).Contains(val) Then RoutineRefDic(Act).Add(val)
             End If
 
             If R.DESCFCN IsNot Nothing Then
                 Dim Act As String = R.DESCFCN
-                If Not RoutineDic.ContainsKey(Act) Then
-                    RoutineDic.Add(Act, New Generic.List(Of String))
+                If Not RoutineRefDic.ContainsKey(Act) Then
+                    RoutineRefDic.Add(Act, New Generic.List(Of String))
                 End If
                 Dim val As String = "O-" & R.Name
-                If Not RoutineDic(Act).Contains(val) Then RoutineDic(Act).Add(val)
+                If Not RoutineRefDic(Act).Contains(val) Then RoutineRefDic(Act).Add(val)
             End If
 
         Next
 
-        For Each flag As String In RoutineDic.Keys
+        For Each flag As String In RoutineRefDic.Keys
             For Each act As clsRoutine In Routines
                 If act.Value.Contains(flag) Then
-                    RoutineDic(flag).Add("A-" & act.Name)
+                    RoutineRefDic(flag).Add("A-" & act.Name)
                 End If
             Next
 
@@ -513,6 +517,47 @@
 
 
     End Sub
+
+
+    Public GlobalConstantDictionary As New Generic.Dictionary(Of String, clsGlobal)
+    Public Sub LoadGlobalConstantDictionary()
+        For Each g As clsGlobal In Globals
+            If Not GlobalConstantDictionary.ContainsKey(g.Name) Then
+                GlobalConstantDictionary.Add(g.Name, g)
+            End If
+        Next
+
+    End Sub
+
+    Public RoutineDictionary As New Generic.Dictionary(Of String, clsRoutine)
+    Public Sub LoadRoutineDictionary()
+        For Each g As clsRoutine In Routines
+            If Not RoutineDictionary.ContainsKey(g.Name) Then
+                RoutineDictionary.Add(g.Name, g)
+            End If
+        Next
+
+    End Sub
+    Public ObjectDictionary As New Generic.Dictionary(Of String, clsObject)
+    Public Sub LoadObjectDictionary()
+        For Each g As clsObject In Objects
+            If Not ObjectDictionary.ContainsKey(g.Name) Then
+                ObjectDictionary.Add(g.Name, g)
+            End If
+        Next
+
+    End Sub
+    Public RoomDictionary As New Generic.Dictionary(Of String, clsRoom)
+    Public Sub LoadRoomDictionary()
+        For Each g As clsRoom In Rooms
+            If Not RoomDictionary.ContainsKey(g.Name) Then
+                RoomDictionary.Add(g.Name, g)
+            End If
+        Next
+
+    End Sub
+
+
 
 
     Public ObjRefDic As Dictionary(Of String, List(Of String))
@@ -543,10 +588,10 @@
         Next
 
 
-        For Each ObjName As String In RoutineDic.Keys
+        For Each ObjName As String In RoutineRefDic.Keys
             For Each Rtn As clsRoutine In Routines
                 If Rtn.Value.Contains(ObjName) Then
-                    RoutineDic(ObjName).Add("A-" & Rtn.Name)
+                    RoutineRefDic(ObjName).Add("A-" & Rtn.Name)
                 End If
             Next
 
@@ -564,5 +609,32 @@
 
         Return Nothing
 
+    End Function
+
+    Public Function GetThingByName(name As String)
+        Dim x As clsBase
+        'room
+        If RoomDictionary.ContainsKey(name) Then Return RoomDictionary(name)
+
+
+        If RoutineDictionary.ContainsKey(name) Then Return RoutineDictionary(name)
+        'Object
+        If ObjectDictionary.ContainsKey(name) Then Return ObjectDictionary(name)
+        'Routine
+        If RoutineDictionary.ContainsKey(name) Then Return RoutineDictionary(name)
+
+        'Global constants
+        If GlobalConstantDictionary.ContainsKey(name) Then Return GlobalConstantDictionary(name)
+
+        'Flag
+        If FlagDic.ContainsKey(name) Then
+            Return New clsFlag(name, FlagDic(name))
+        End If
+
+        'syn
+        x = GetSyn(name)
+        If x IsNot Nothing Then Return x
+
+        Return Nothing
     End Function
 End Class

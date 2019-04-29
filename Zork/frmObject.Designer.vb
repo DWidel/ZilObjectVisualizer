@@ -22,12 +22,12 @@ Partial Class frmObject
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.txtName = New System.Windows.Forms.TextBox()
         Me.txtDesc = New System.Windows.Forms.TextBox()
         Me.txtLDesc = New System.Windows.Forms.TextBox()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.txtAdj = New System.Windows.Forms.TextBox()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.txtAction = New System.Windows.Forms.TextBox()
@@ -46,6 +46,7 @@ Partial Class frmObject
         Me.dgvProps = New System.Windows.Forms.DataGridView()
         Me.colName = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colVal = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.cmnu_Prop = New System.Windows.Forms.ContextMenuStrip(Me.components)
         Me.lbObjectsHere = New System.Windows.Forms.ListBox()
         Me.Label7 = New System.Windows.Forms.Label()
         Me.lblText = New System.Windows.Forms.LinkLabel()
@@ -54,7 +55,12 @@ Partial Class frmObject
         Me.pnlObjRefs = New System.Windows.Forms.Panel()
         Me.btnText = New System.Windows.Forms.LinkLabel()
         Me.btnFDesc = New System.Windows.Forms.LinkLabel()
+        Me.btnLDesc = New System.Windows.Forms.LinkLabel()
+        Me.txtValue = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        Me.NoLinksToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         CType(Me.dgvProps, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.cmnu_Prop.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -100,15 +106,6 @@ Partial Class frmObject
         Me.txtLDesc.Size = New System.Drawing.Size(654, 62)
         Me.txtLDesc.TabIndex = 5
         '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(7, 32)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(38, 13)
-        Me.Label3.TabIndex = 4
-        Me.Label3.Text = "LDesc"
-        '
         'txtAdj
         '
         Me.txtAdj.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
@@ -125,9 +122,9 @@ Partial Class frmObject
         Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(-2, 361)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(56, 13)
+        Me.Label4.Size = New System.Drawing.Size(51, 13)
         Me.Label4.TabIndex = 6
-        Me.Label4.Text = "Adjectives"
+        Me.Label4.Text = "Adjective"
         '
         'txtAction
         '
@@ -169,9 +166,9 @@ Partial Class frmObject
         Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(-2, 339)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(55, 13)
+        Me.Label10.Size = New System.Drawing.Size(50, 13)
         Me.Label10.TabIndex = 20
-        Me.Label10.Text = "Synonyms"
+        Me.Label10.Text = "Synonym"
         '
         'txtText
         '
@@ -206,7 +203,7 @@ Partial Class frmObject
         'lblDescFcn
         '
         Me.lblDescFcn.AutoSize = True
-        Me.lblDescFcn.Location = New System.Drawing.Point(220, 100)
+        Me.lblDescFcn.Location = New System.Drawing.Point(380, 100)
         Me.lblDescFcn.Name = "lblDescFcn"
         Me.lblDescFcn.Size = New System.Drawing.Size(50, 13)
         Me.lblDescFcn.TabIndex = 37
@@ -215,7 +212,7 @@ Partial Class frmObject
         '
         'txtDescFcn
         '
-        Me.txtDescFcn.Location = New System.Drawing.Point(270, 97)
+        Me.txtDescFcn.Location = New System.Drawing.Point(430, 97)
         Me.txtDescFcn.Name = "txtDescFcn"
         Me.txtDescFcn.Size = New System.Drawing.Size(146, 20)
         Me.txtDescFcn.TabIndex = 32
@@ -261,6 +258,7 @@ Partial Class frmObject
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.dgvProps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
         Me.dgvProps.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colName, Me.colVal})
+        Me.dgvProps.ContextMenuStrip = Me.cmnu_Prop
         Me.dgvProps.Location = New System.Drawing.Point(10, 131)
         Me.dgvProps.Name = "dgvProps"
         Me.dgvProps.ReadOnly = True
@@ -281,6 +279,12 @@ Partial Class frmObject
         Me.colVal.Name = "colVal"
         Me.colVal.ReadOnly = True
         Me.colVal.Width = 300
+        '
+        'cmnu_Prop
+        '
+        Me.cmnu_Prop.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NoLinksToolStripMenuItem})
+        Me.cmnu_Prop.Name = "cmnu_Prop"
+        Me.cmnu_Prop.Size = New System.Drawing.Size(141, 26)
         '
         'lbObjectsHere
         '
@@ -342,33 +346,68 @@ Partial Class frmObject
         Me.pnlObjRefs.Size = New System.Drawing.Size(379, 514)
         Me.pnlObjRefs.TabIndex = 47
         '
-        'LinkLabel1
+        'btnText
         '
         Me.btnText.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnText.AutoSize = True
         Me.btnText.Location = New System.Drawing.Point(12, 389)
-        Me.btnText.Name = "LinkLabel1"
+        Me.btnText.Name = "btnText"
         Me.btnText.Size = New System.Drawing.Size(28, 13)
         Me.btnText.TabIndex = 48
         Me.btnText.TabStop = True
         Me.btnText.Text = "Text"
         '
-        'lblFDesc
+        'btnFDesc
         '
         Me.btnFDesc.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.btnFDesc.AutoSize = True
         Me.btnFDesc.Location = New System.Drawing.Point(12, 467)
-        Me.btnFDesc.Name = "lblFDesc"
+        Me.btnFDesc.Name = "btnFDesc"
         Me.btnFDesc.Size = New System.Drawing.Size(38, 13)
         Me.btnFDesc.TabIndex = 49
         Me.btnFDesc.TabStop = True
         Me.btnFDesc.Text = "FDesc"
+        '
+        'btnLDesc
+        '
+        Me.btnLDesc.AutoSize = True
+        Me.btnLDesc.Location = New System.Drawing.Point(7, 32)
+        Me.btnLDesc.Name = "btnLDesc"
+        Me.btnLDesc.Size = New System.Drawing.Size(38, 13)
+        Me.btnLDesc.TabIndex = 60
+        Me.btnLDesc.TabStop = True
+        Me.btnLDesc.Text = "LDesc"
+        '
+        'txtValue
+        '
+        Me.txtValue.Location = New System.Drawing.Point(258, 97)
+        Me.txtValue.Name = "txtValue"
+        Me.txtValue.Size = New System.Drawing.Size(100, 20)
+        Me.txtValue.TabIndex = 61
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(213, 100)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(34, 13)
+        Me.Label3.TabIndex = 60
+        Me.Label3.Text = "Value"
+        '
+        'NoLinksToolStripMenuItem
+        '
+        Me.NoLinksToolStripMenuItem.Name = "NoLinksToolStripMenuItem"
+        Me.NoLinksToolStripMenuItem.Size = New System.Drawing.Size(140, 22)
+        Me.NoLinksToolStripMenuItem.Text = "Select a Row"
         '
         'frmObject
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1094, 527)
+        Me.Controls.Add(Me.txtValue)
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.btnLDesc)
         Me.Controls.Add(Me.btnFDesc)
         Me.Controls.Add(Me.btnText)
         Me.Controls.Add(Me.pnlObjRefs)
@@ -394,7 +433,6 @@ Partial Class frmObject
         Me.Controls.Add(Me.txtAction)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.txtLDesc)
-        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.txtDesc)
         Me.Controls.Add(Me.txtName)
         Me.Controls.Add(Me.Label2)
@@ -402,6 +440,7 @@ Partial Class frmObject
         Me.Name = "frmObject"
         Me.Text = "Object"
         CType(Me.dgvProps, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.cmnu_Prop.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -412,7 +451,6 @@ Partial Class frmObject
     Friend WithEvents txtName As TextBox
     Friend WithEvents txtDesc As TextBox
     Friend WithEvents txtLDesc As TextBox
-    Friend WithEvents Label3 As Label
     Friend WithEvents txtAdj As TextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents txtAction As TextBox
@@ -439,4 +477,11 @@ Partial Class frmObject
     Friend WithEvents pnlObjRefs As Panel
     Friend WithEvents btnText As LinkLabel
     Friend WithEvents btnFDesc As LinkLabel
+    Friend WithEvents btnLDesc As LinkLabel
+    Friend WithEvents txtValue As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents TextBox2 As TextBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents cmnu_Prop As ContextMenuStrip
+    Friend WithEvents NoLinksToolStripMenuItem As ToolStripMenuItem
 End Class

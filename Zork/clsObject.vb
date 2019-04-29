@@ -1,35 +1,27 @@
 ﻿Public Class clsObject
     Inherits clsBase
 
-
-    'Public IsIn As String
-    'Public Location As String
     Public Parent As String
-    Public Text As String
-    Public Synonyms As New List(Of String)
-    Public Adjectives As New List(Of String)
-    Public Flags As New List(Of String)
-    Public Action As String
-    Public Desc As String
     Public LDesc As String
-    'Public Size As String
-    'Public Value As String
-    'Public TValue As String
-    Public FDesc As String
-    'Public Capacity As String
-    Public DESCFCN As String
-    'Public Strength As String
-    'Public VType As String
-    'Public Globals As String
-    '   Object BOARD
-    '(IN LOCAL-GLOBALS)
-    '(SYNONYM BOARDS BOARD)
-    '(DESC "board")
-    '(FLAGS NDESCBIT)
-    '(ACTION BOARD-F)
+    Public Desc As String
+    Public Action As String
 
+    Public Synonyms As New List(Of String)
+    Public Flags As New List(Of String)
     Public Props As New Dictionary(Of String, String)
     Public Objects As New List(Of String)
+
+
+
+    Public Value As String
+    'objects can have pseudos?
+
+    Public Text As String
+    Public Adjectives As New List(Of String)
+    Public FDesc As String
+    Public DESCFCN As String
+
+
 
 
     Public Sub New(txt As String)
@@ -62,8 +54,8 @@
                     Me.DESCFCN = Remainder2
                 Case "TEXT"
                     Me.Text = Remainder2
-                'Case "VALUE"
-                '    Me.Value = Remainder2
+                Case "VALUE"
+                    Me.Value = Remainder2
                 'Case "TVALUE"
                 '    Me.TValue = Remainder2
                 'Case "SIZE"
@@ -120,5 +112,15 @@
         Return Me.Name & "-" & Me.Desc
     End Function
 
+    Public Overrides ReadOnly Property ThingTypeDesc As String
+        Get
+            Return "Object"
+        End Get
+    End Property
 
+    Public Overrides ReadOnly Property ThingType As ObjTypes
+        Get
+            Return ObjTypes.Object
+        End Get
+    End Property
 End Class

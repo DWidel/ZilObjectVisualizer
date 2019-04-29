@@ -1,8 +1,12 @@
 ﻿Public Class frmRoom
 
+
+    Public Event JumpTo(x As clsBase)
     Public Event NewRoom(Name As String)
 
     Private Room As clsRoom
+
+    Private PropLinkDictionary As New Dictionary(Of String, List(Of clsBase))
 
 
     Public Sub New(R As clsRoom)
@@ -25,17 +29,26 @@
 
         txtValue.Text = Room.Value
 
-        txtParent.Text = Room.parent
+        txtParent.Text = Room.Parent
 
 
-        For Each dir As String In Room.Directions.Keys
-            Dim Arr(2) As String
-            Arr(0) = dir
-            Arr(1) = Room.Directions(dir)
-            dgvDirections.Rows.Add(Arr)
-
-
+        For Each key As String In Room.Props.Keys
+            Dim arr(2) As String
+            arr(0) = key
+            arr(1) = Room.Props(key)
+            dgvProps.Rows.Add(arr)
         Next
+
+        dgvProps.ClearSelection()
+
+        'For Each dir As String In Room.Directions.Keys
+        '    Dim Arr(2) As String
+        '    Arr(0) = dir
+        '    Arr(1) = Room.Directions(dir)
+        '    dgvDirections.Rows.Add(Arr) 
+        'Next
+
+
         'txtPseudo.Text = Room.PSEUDO
         'For Each txt As String In Room.Pseudos.Keys
         '    Dim Arr(2) As String
@@ -66,7 +79,27 @@
 
         Next
 
+        txtAdjective.Text = String.Join(",", Room.Adjectives.ToArray)
 
+
+        LoadPropLinkDictionary()
+
+
+    End Sub
+    Private Sub LoadPropLinkDictionary()
+        For Each PropName As String In Room.Props.Keys
+            Dim things As New List(Of clsBase)
+
+            Dim splitter As New GetTokenList(Room.Props(PropName))
+
+            For Each word As String In splitter.WordList
+                Dim x As clsBase = Game.GetThingByName(word)
+                If x IsNot Nothing Then
+                    things.Add(x)
+                End If
+            Next
+            PropLinkDictionary.Add(PropName, things)
+        Next
 
     End Sub
 
@@ -119,26 +152,32 @@
     End Sub
 
 
-    Private Sub dgvDirections_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles dgvDirections.MouseDoubleClick
-        If dgvDirections.SelectedRows.Count = 0 Then Exit Sub
+    Private Sub dgvProps_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles dgvProps.MouseDoubleClick
+        Try
+            PropertyNavigation()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
+    End Sub
 
-        Dim key As String = dgvDirections.SelectedRows(0).Cells(1).Value.ToString
-        If key.StartsWith("TO ") Then
-            Dim Room As String = GetSecondWord(key)
-            RaiseEvent NewRoom(Room)
-        ElseIf key.StartsWith("PER ") Then
-            Dim action As String = key.Substring(4).Trim
-            Dim A As clsRoutine = Game.GetRoutine(action)
-            Using f As New frmNameValue(A)
-                f.ShowDialog()
-            End Using
-        Else
-            MsgBox(key)
+    Private Sub PropertyNavigation()
+
+
+        Dim NavList As New List(Of clsBase)
+
+        Dim PropName As String = dgvProps.SelectedRows(0).Cells(0).Value.ToString
+        If Me.PropLinkDictionary.ContainsKey(PropName) Then
+            For Each x As clsBase In PropLinkDictionary(PropName)
+                NavList.Add(x)
+            Next
+        End If
+        If NavList.Count > 0 Then
+            Dim x As clsBase = NavList(0)
+            RaiseEvent JumpTo(x)
         End If
 
 
     End Sub
-
 
     Private Sub lbFlags_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles lbFlags.MouseDoubleClick
         If lbFlags.SelectedItem Is Nothing Then Exit Sub
@@ -215,12 +254,75 @@
     Private Sub btnLDesc_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles btnLDesc.LinkClicked
         Dim txt As String = txtLDesc.Text
         If txt <> "" Then
-            'txt = txt.Replace(vbLf, " ").Replace(vbCr, " ")
-            'txt = txt.Replace("|", vbCrLf)
             Using f As New frmOriginalText(txt)
                 f.Text = "Formatted Text"
                 f.ShowDialog()
             End Using
         End If
     End Sub
+
+
+    Private Sub cmnu_Prop_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmnu_Prop.Opening
+        If dgvProps.SelectedRows.Count = 0 Then Exit Sub
+
+        cmnu_Prop.Items.Clear()
+
+        Dim NavList As New List(Of clsBase)
+
+        Dim PropName As String = dgvProps.SelectedRows(0).Cells(0).Value.ToString
+        If Me.PropLinkDictionary.ContainsKey(PropName) Then
+            For Each x As clsBase In PropLinkDictionary(PropName)
+                NavList.Add(x)
+            Next
+        End If
+
+        If NavList.Count > 0 Then
+            For Each x As clsBase In NavList
+                Dim c As New ToolStripMenuItem("Open " & x.ThingTypeDesc & ":  " & x.ToString)
+                cmnu_Prop.Items.Add(c)
+                c.Tag = x
+                AddHandler c.Click, AddressOf cmnu_Prop_Clicked
+            Next
+
+            cmnu_Prop.Items.Add(New ToolStripSeparator)
+            For Each x As clsBase In NavList
+                Select Case x.ThingType
+                    Case ObjTypes.Synonym, ObjTypes.Syntax
+                    Case Else
+                        Dim c As New ToolStripMenuItem("Go To " & x.ThingTypeDesc & ":  " & x.ToString)
+                        cmnu_Prop.Items.Add(c)
+                        c.Tag = x
+                        AddHandler c.Click, AddressOf cmnu_Prop_Clicked
+
+                End Select
+            Next
+
+        End If
+        Dim cft As New ToolStripMenuItem("Display Text")
+        cft.Tag = Room.Props(PropName)
+        AddHandler cft.Click, AddressOf cmnu_Prop_Clicked
+        cmnu_Prop.Items.Add(cft)
+
+    End Sub
+
+    Private Sub cmnu_Prop_Clicked(sender As Object, e As EventArgs)
+
+        If sender.text = "Display Text" Then
+            ShowFormattedText(sender.tag, False)
+        Else
+            Dim x As clsBase = sender.tag
+
+            If sender.text.startswith("O") Then
+                Using f As Form = GetThingDialog(x)
+                    f.ShowDialog()
+                End Using
+            Else
+                RaiseEvent JumpTo(x)
+            End If
+
+        End If
+
+
+    End Sub
+
 End Class

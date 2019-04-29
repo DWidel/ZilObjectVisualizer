@@ -1,4 +1,4 @@
-﻿Public Class clsNameValue
+﻿Public MustInherit Class clsNameValue
     Inherits clsBase
 
     Public Value As String

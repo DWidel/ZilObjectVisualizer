@@ -1,10 +1,11 @@
 ﻿Public Class frmObject
 
-
+    Public Event JumpTo(x As clsBase)
     Public Event NewObject(Name As String)
     Private Obj As clsObject
 
 
+    Private PropLinkDictionary As New Dictionary(Of String, List(Of clsBase))
 
 
 
@@ -44,7 +45,7 @@
         'txtCapacity.Text = Obj.Capacity
         'txtStrength.Text = Obj.Strength
         'txtVType.Text = Obj.VType
-        'txtValue.Text = Obj.Value
+        txtValue.Text = Obj.Value
 
 
         For Each key As String In Obj.Props.Keys
@@ -53,6 +54,8 @@
             arr(1) = Obj.Props(key)
             dgvProps.Rows.Add(arr)
         Next
+
+        dgvProps.ClearSelection()
 
         Dim lst As List(Of clsObject) = Game.GetObjectsInRoomOrObject(Obj.Name)
         For Each Obj As clsObject In lst
@@ -68,6 +71,25 @@
             pnlObjRefs.Controls.Add(f)
             f.Show()
         End If
+
+        LoadPropLinkDictionary()
+
+    End Sub
+
+    Private Sub LoadPropLinkDictionary()
+        For Each PropName As String In Obj.Props.Keys
+            Dim things As New List(Of clsBase)
+
+            Dim splitter As New GetTokenList(Obj.Props(PropName))
+
+            For Each word As String In splitter.WordList
+                Dim x As clsBase = Game.GetThingByName(word)
+                If x IsNot Nothing Then
+                    things.Add(x)
+                End If
+            Next
+            PropLinkDictionary.Add(PropName, things)
+        Next
 
     End Sub
 
@@ -152,22 +174,28 @@
 
 
     Private Sub dgvProps_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles dgvProps.MouseDoubleClick
-        If dgvProps.SelectedRows.Count = 0 Then Exit Sub
+        Try
+            PropertyNavigation()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
 
-        Dim key As String = dgvProps.SelectedRows(0).Cells(1).Value.ToString
-        If key.StartsWith("TO ") Then
-            Dim Room As String = GetSecondWord(key)
-            RaiseEvent NewObject(Room)
-        ElseIf key.StartsWith("PER ") Then
-            Dim action As String = key.Substring(4).Trim
-            Dim A As clsRoutine = Game.GetRoutine(action)
-            If A IsNot Nothing Then
-                Using f As New frmNameValue(A)
-                    f.ShowDialog()
-                End Using
-            End If
-        Else
-            MsgBox(key)
+    End Sub
+
+    Private Sub PropertyNavigation()
+
+
+        Dim NavList As New List(Of clsBase)
+
+        Dim PropName As String = dgvProps.SelectedRows(0).Cells(0).Value.ToString
+        If Me.PropLinkDictionary.ContainsKey(PropName) Then
+            For Each x As clsBase In PropLinkDictionary(PropName)
+                NavList.Add(x)
+            Next
+        End If
+        If NavList.Count > 0 Then
+            Dim x As clsBase = NavList(0)
+            RaiseEvent JumpTo(x)
         End If
 
 
@@ -175,9 +203,10 @@
 
 
 
+
+
     Private Sub lblIN_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles lblIN.LinkClicked
         Try
-
             HandleNav(txtParent.Text)
         Catch ex As Exception
             MsgBox(ex.Message)
@@ -202,35 +231,87 @@
 
     End Sub
 
-    Private Sub lbObjectsHere_SelectedIndexChanged(sender As Object, e As EventArgs) Handles lbObjectsHere.SelectedIndexChanged
-
-    End Sub
-
-    Private Sub txtParent_TextChanged(sender As Object, e As EventArgs) Handles txtParent.TextChanged
-
-    End Sub
 
     Private Sub btnText_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles btnText.LinkClicked
-        If txtText.Text <> "" Then
-            Dim txt As String = txtText.Text
-            txt = txt.Replace(vbLf, " ").Replace(vbCr, " ")
-            txt = txt.Replace("|", vbCrLf)
-            Using f As New frmOriginalText(txt)
-                f.Text = "Formatted Text"
-                f.ShowDialog()
-            End Using
-        End If
+        ShowFormattedText(txtText.Text, True)
     End Sub
 
     Private Sub btnFDesc_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles btnFDesc.LinkClicked
-        If txtFDesc.Text <> "" Then
-            Dim txt As String = txtFDesc.Text
-            txt = txt.Replace(vbLf, " ").Replace(vbCr, " ")
-            txt = txt.Replace("|", vbCrLf)
+
+        ShowFormattedText(txtFDesc.Text, True)
+
+    End Sub
+
+    Private Sub btnLDesc_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles btnLDesc.LinkClicked
+        Dim txt As String = txtLDesc.Text
+        If txt <> "" Then
             Using f As New frmOriginalText(txt)
                 f.Text = "Formatted Text"
                 f.ShowDialog()
             End Using
         End If
+    End Sub
+
+    Private Sub cmnu_Prop_Opening(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles cmnu_Prop.Opening
+        If dgvProps.SelectedRows.Count = 0 Then Exit Sub
+
+        cmnu_Prop.Items.Clear()
+
+        Dim NavList As New List(Of clsBase)
+
+        Dim PropName As String = dgvProps.SelectedRows(0).Cells(0).Value.ToString
+        If Me.PropLinkDictionary.ContainsKey(PropName) Then
+            For Each x As clsBase In PropLinkDictionary(PropName)
+                NavList.Add(x)
+            Next
+        End If
+
+        If NavList.Count > 0 Then
+            For Each x As clsBase In NavList
+                Dim c As New ToolStripMenuItem("Open " & x.ThingTypeDesc & ":  " & x.ToString)
+                cmnu_Prop.Items.Add(c)
+                c.Tag = x
+                AddHandler c.Click, AddressOf cmnu_Prop_Clicked
+            Next
+            For Each x As clsBase In NavList
+                Select Case x.ThingType
+                    Case ObjTypes.Synonym, ObjTypes.Syntax
+                    Case Else
+                        Dim c As New ToolStripMenuItem("Go To " & x.ThingTypeDesc & ":  " & x.ToString)
+                        cmnu_Prop.Items.Add(c)
+                        c.Tag = x
+                        AddHandler c.Click, AddressOf cmnu_Prop_Clicked
+
+                End Select
+            Next
+
+        End If
+
+
+        Dim cft As New ToolStripMenuItem("Display Text")
+        cft.Tag = Obj.Props(PropName)
+        AddHandler cft.Click, AddressOf cmnu_Prop_Clicked
+        cmnu_Prop.Items.Add(cft)
+
+    End Sub
+    Private Sub cmnu_Prop_Clicked(sender As Object, e As EventArgs)
+
+
+        If sender.text = "Display Text" Then
+            ShowFormattedText(sender.tag, False)
+        Else
+            Dim x As clsBase = sender.tag
+
+            If sender.text.startswith("O") Then
+                Using f As Form = GetThingDialog(x)
+                    f.ShowDialog()
+                End Using
+            Else
+                RaiseEvent JumpTo(x)
+            End If
+
+        End If
+
+
     End Sub
 End Class

@@ -30,4 +30,15 @@
     Public Overrides Function ToString() As String
         Return Me.Name
     End Function
+
+    Public Overrides ReadOnly Property ThingTypeDesc As String
+        Get
+            Return "Synonym"
+        End Get
+    End Property
+    Public Overrides ReadOnly Property ThingType As ObjTypes
+        Get
+            Return ObjTypes.Synonym
+        End Get
+    End Property
 End Class

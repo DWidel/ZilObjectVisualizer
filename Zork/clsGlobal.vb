@@ -44,4 +44,18 @@
         Return Me.Name
     End Function
 
+    Public Overrides ReadOnly Property ThingTypeDesc As String
+        Get
+            If Type = VarType.Global Then
+                Return "Global"
+            Else
+                Return "Constant"
+            End If
+        End Get
+    End Property
+    Public Overrides ReadOnly Property ThingType As ObjTypes
+        Get
+            Return ObjTypes.Global
+        End Get
+    End Property
 End Class

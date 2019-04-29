@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class frmRoom
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class frmRoom
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -33,9 +33,11 @@ Partial Class frmRoom
         Me.Label6 = New System.Windows.Forms.Label()
         Me.txtValue = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.dgvDirections = New System.Windows.Forms.DataGridView()
+        Me.dgvProps = New System.Windows.Forms.DataGridView()
         Me.colDir = New System.Windows.Forms.DataGridViewTextBoxColumn()
         Me.colValue = New System.Windows.Forms.DataGridViewTextBoxColumn()
+        Me.cmnu_Prop = New System.Windows.Forms.ContextMenuStrip(Me.components)
+        Me.NoLinksToolStripMenuItem = New System.Windows.Forms.ToolStripMenuItem()
         Me.lbObjects = New System.Windows.Forms.ListBox()
         Me.lbObjectsHere = New System.Windows.Forms.ListBox()
         Me.Label5 = New System.Windows.Forms.Label()
@@ -48,7 +50,10 @@ Partial Class frmRoom
         Me.txtParent = New System.Windows.Forms.TextBox()
         Me.lblIN = New System.Windows.Forms.LinkLabel()
         Me.btnLDesc = New System.Windows.Forms.LinkLabel()
-        CType(Me.dgvDirections, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.txtAdjective = New System.Windows.Forms.TextBox()
+        Me.Label3 = New System.Windows.Forms.Label()
+        CType(Me.dgvProps, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.cmnu_Prop.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label1
@@ -137,38 +142,50 @@ Partial Class frmRoom
         Me.Label7.TabIndex = 16
         Me.Label7.Text = "Value"
         '
-        'dgvDirections
+        'dgvProps
         '
-        Me.dgvDirections.AllowUserToAddRows = False
-        Me.dgvDirections.AllowUserToDeleteRows = False
-        Me.dgvDirections.AllowUserToResizeRows = False
-        Me.dgvDirections.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+        Me.dgvProps.AllowUserToAddRows = False
+        Me.dgvProps.AllowUserToDeleteRows = False
+        Me.dgvProps.AllowUserToResizeRows = False
+        Me.dgvProps.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.dgvDirections.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        Me.dgvDirections.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDir, Me.colValue})
-        Me.dgvDirections.Location = New System.Drawing.Point(10, 149)
-        Me.dgvDirections.MultiSelect = False
-        Me.dgvDirections.Name = "dgvDirections"
-        Me.dgvDirections.ReadOnly = True
-        Me.dgvDirections.RowHeadersVisible = False
-        Me.dgvDirections.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
-        Me.dgvDirections.Size = New System.Drawing.Size(434, 284)
-        Me.dgvDirections.TabIndex = 20
+        Me.dgvProps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        Me.dgvProps.Columns.AddRange(New System.Windows.Forms.DataGridViewColumn() {Me.colDir, Me.colValue})
+        Me.dgvProps.ContextMenuStrip = Me.cmnu_Prop
+        Me.dgvProps.Location = New System.Drawing.Point(10, 149)
+        Me.dgvProps.MultiSelect = False
+        Me.dgvProps.Name = "dgvProps"
+        Me.dgvProps.ReadOnly = True
+        Me.dgvProps.RowHeadersVisible = False
+        Me.dgvProps.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect
+        Me.dgvProps.Size = New System.Drawing.Size(434, 284)
+        Me.dgvProps.TabIndex = 20
         '
         'colDir
         '
-        Me.colDir.HeaderText = "Dir"
+        Me.colDir.HeaderText = "Name"
         Me.colDir.Name = "colDir"
         Me.colDir.ReadOnly = True
-        Me.colDir.Width = 60
         '
         'colValue
         '
         Me.colValue.HeaderText = "Value"
         Me.colValue.Name = "colValue"
         Me.colValue.ReadOnly = True
-        Me.colValue.Width = 350
+        Me.colValue.Width = 330
+        '
+        'cmnu_Prop
+        '
+        Me.cmnu_Prop.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NoLinksToolStripMenuItem})
+        Me.cmnu_Prop.Name = "cmnu_Prop"
+        Me.cmnu_Prop.Size = New System.Drawing.Size(181, 48)
+        '
+        'NoLinksToolStripMenuItem
+        '
+        Me.NoLinksToolStripMenuItem.Name = "NoLinksToolStripMenuItem"
+        Me.NoLinksToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.NoLinksToolStripMenuItem.Text = "Select a Row"
         '
         'lbObjects
         '
@@ -276,11 +293,33 @@ Partial Class frmRoom
         Me.btnLDesc.TabStop = True
         Me.btnLDesc.Text = "LDesc"
         '
+        'txtAdjective
+        '
+        Me.txtAdjective.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.txtAdjective.Location = New System.Drawing.Point(52, 467)
+        Me.txtAdjective.Multiline = True
+        Me.txtAdjective.Name = "txtAdjective"
+        Me.txtAdjective.Size = New System.Drawing.Size(629, 18)
+        Me.txtAdjective.TabIndex = 63
+        '
+        'Label3
+        '
+        Me.Label3.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(-2, 465)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(51, 13)
+        Me.Label3.TabIndex = 62
+        Me.Label3.Text = "Adjective"
+        '
         'frmRoom
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(692, 497)
+        Me.Controls.Add(Me.txtAdjective)
+        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.btnLDesc)
         Me.Controls.Add(Me.txtParent)
         Me.Controls.Add(Me.lblIN)
@@ -292,7 +331,7 @@ Partial Class frmRoom
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.lbObjects)
-        Me.Controls.Add(Me.dgvDirections)
+        Me.Controls.Add(Me.dgvProps)
         Me.Controls.Add(Me.txtValue)
         Me.Controls.Add(Me.Label7)
         Me.Controls.Add(Me.Label6)
@@ -305,7 +344,8 @@ Partial Class frmRoom
         Me.Controls.Add(Me.Label1)
         Me.Name = "frmRoom"
         Me.Text = "Room"
-        CType(Me.dgvDirections, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.dgvProps, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.cmnu_Prop.ResumeLayout(False)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -321,9 +361,7 @@ Partial Class frmRoom
     Friend WithEvents Label6 As Label
     Friend WithEvents txtValue As TextBox
     Friend WithEvents Label7 As Label
-    Friend WithEvents dgvDirections As DataGridView
-    Friend WithEvents colDir As DataGridViewTextBoxColumn
-    Friend WithEvents colValue As DataGridViewTextBoxColumn
+    Friend WithEvents dgvProps As DataGridView
     Friend WithEvents lbObjects As ListBox
     Friend WithEvents lbObjectsHere As ListBox
     Friend WithEvents Label5 As Label
@@ -336,4 +374,10 @@ Partial Class frmRoom
     Friend WithEvents txtParent As TextBox
     Friend WithEvents lblIN As LinkLabel
     Friend WithEvents btnLDesc As LinkLabel
+    Friend WithEvents colDir As DataGridViewTextBoxColumn
+    Friend WithEvents colValue As DataGridViewTextBoxColumn
+    Friend WithEvents txtAdjective As TextBox
+    Friend WithEvents Label3 As Label
+    Friend WithEvents cmnu_Prop As ContextMenuStrip
+    Friend WithEvents NoLinksToolStripMenuItem As ToolStripMenuItem
 End Class

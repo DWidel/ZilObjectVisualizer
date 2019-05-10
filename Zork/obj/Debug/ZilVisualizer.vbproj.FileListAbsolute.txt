@@ -38,3 +38,4 @@ C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\bin\Debug\Zork
 C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\bin\Debug\Zork.pdb
 C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\bin\Debug\Zork.xml
 C:\Users\david.widel\Source\Repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\Zork.frmNameValue.resources
+C:\Users\david.widel\source\repos\DWidel\ZilObjectVisualizer\Zork\obj\Debug\ZilVisualizer.vbprojAssemblyReference.cache

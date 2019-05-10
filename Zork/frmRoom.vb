@@ -133,6 +133,14 @@
             Using f As New frmObject(R)
                 f.ShowDialog()
             End Using
+        Else
+            Dim Rm As clsRoom = Game.GetRoom(key)
+            If Rm IsNot Nothing Then
+                Using f As New frmRoom(Rm)
+                    f.ShowDialog()
+                End Using
+            End If
+
         End If
 
     End Sub
@@ -324,5 +332,32 @@
 
 
     End Sub
+
+
+    Private Sub dgvProps_SelectionChanged(sender As Object, e As EventArgs) Handles dgvProps.SelectionChanged
+
+        lblGridPreview.Text = ""
+
+        If dgvProps.SelectedRows Is Nothing OrElse dgvProps.SelectedRows.Count = 0 Then Exit Sub
+
+        Dim NavList As New List(Of clsBase)
+        Dim PropName As String = dgvProps.SelectedRows(0).Cells(0).Value.ToString
+        If Me.PropLinkDictionary.ContainsKey(PropName) Then
+            For Each x As clsBase In PropLinkDictionary(PropName)
+                NavList.Add(x)
+            Next
+        End If
+        If NavList.Count > 0 Then
+            For Each x As clsBase In NavList
+                If x.ThingType = ObjTypes.Global Then
+                    Dim G As clsGlobal = x
+                    lblGridPreview.Text = G.Name & "=" & G.Value.ToString
+
+                End If
+            Next
+        End If
+
+    End Sub
+
 
 End Class

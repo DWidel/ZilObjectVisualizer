@@ -52,6 +52,7 @@ Partial Class frmRoom
         Me.btnLDesc = New System.Windows.Forms.LinkLabel()
         Me.txtAdjective = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
+        Me.lblGridPreview = New System.Windows.Forms.Label()
         CType(Me.dgvProps, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.cmnu_Prop.SuspendLayout()
         Me.SuspendLayout()
@@ -122,9 +123,10 @@ Partial Class frmRoom
         Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(450, 161)
         Me.Label6.Name = "Label6"
-        Me.Label6.Size = New System.Drawing.Size(82, 13)
+        Me.Label6.Size = New System.Drawing.Size(121, 13)
         Me.Label6.TabIndex = 10
-        Me.Label6.Text = "Global (Objects)"
+        Me.Label6.Text = "Global (Objects, Rooms)"
+        Me.ToolTip1.SetToolTip(Me.Label6, "This Thing contains these Things in the Global Property.")
         '
         'txtValue
         '
@@ -179,12 +181,12 @@ Partial Class frmRoom
         '
         Me.cmnu_Prop.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.NoLinksToolStripMenuItem})
         Me.cmnu_Prop.Name = "cmnu_Prop"
-        Me.cmnu_Prop.Size = New System.Drawing.Size(181, 48)
+        Me.cmnu_Prop.Size = New System.Drawing.Size(141, 26)
         '
         'NoLinksToolStripMenuItem
         '
         Me.NoLinksToolStripMenuItem.Name = "NoLinksToolStripMenuItem"
-        Me.NoLinksToolStripMenuItem.Size = New System.Drawing.Size(180, 22)
+        Me.NoLinksToolStripMenuItem.Size = New System.Drawing.Size(140, 22)
         Me.NoLinksToolStripMenuItem.Text = "Select a Row"
         '
         'lbObjects
@@ -313,11 +315,22 @@ Partial Class frmRoom
         Me.Label3.TabIndex = 62
         Me.Label3.Text = "Adjective"
         '
+        'lblGridPreview
+        '
+        Me.lblGridPreview.Anchor = CType(((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.lblGridPreview.Location = New System.Drawing.Point(10, 436)
+        Me.lblGridPreview.Name = "lblGridPreview"
+        Me.lblGridPreview.Size = New System.Drawing.Size(434, 28)
+        Me.lblGridPreview.TabIndex = 64
+        Me.lblGridPreview.Text = "GridPreview"
+        '
         'frmRoom
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(692, 497)
+        Me.Controls.Add(Me.lblGridPreview)
         Me.Controls.Add(Me.txtAdjective)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.btnLDesc)
@@ -380,4 +393,5 @@ Partial Class frmRoom
     Friend WithEvents Label3 As Label
     Friend WithEvents cmnu_Prop As ContextMenuStrip
     Friend WithEvents NoLinksToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents lblGridPreview As Label
 End Class

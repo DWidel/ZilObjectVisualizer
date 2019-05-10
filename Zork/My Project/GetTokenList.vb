@@ -90,6 +90,8 @@
                 Return True
             Case Asc("-")
                 Return True
+            Case Asc("0") To Asc("9")
+                Return True
             Case Else
                 Return False
         End Select

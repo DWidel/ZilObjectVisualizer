@@ -389,18 +389,28 @@
 
     End Function
     Public Function GetRoom(Name As String) As clsRoom
-        For Each R As clsRoom In Rooms
-            If R.Name = Name Then Return R
-        Next
+
+        If RoomDictionary.ContainsKey(Name) Then
+            Return RoomDictionary(Name)
+        End If
+
+        'For Each R As clsRoom In Rooms
+        '    If R.Name = Name Then Return R
+        'Next
 
         Return Nothing
 
     End Function
 
     Public Function GetObject(Name As String) As clsObject
-        For Each R As clsObject In Objects
-            If R.Name = Name Then Return R
-        Next
+
+        If ObjectDictionary.ContainsKey(Name) Then
+            Return ObjectDictionary(Name)
+        End If
+
+        'For Each R As clsObject In Objects
+        '    If R.Name = Name Then Return R
+        'Next
 
         Return Nothing
 
